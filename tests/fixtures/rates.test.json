@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "rules_version": "2026-2",
+    "last_updated": "2026-10-18",
+    "legal_sources": {
+      "severance": "1475 Sayılı İş Kanunu Madde 14 & Hazine ve Maliye Bakanlığı Genelgeleri",
+      "notice": "4857 Sayılı İş Kanunu Madde 17",
+      "tax": "193 Sayılı GVK & 488 Sayılı Damga Vergisi Kanunu"
+    }
+  },
+  "stamp_tax": { "rate": 0.00759, "verified": true, "source_url": "" },
+  "severance_ceiling_periods": [
+    { "period_id": "2025-2", "label": "Temmuz - Aralık 2025", "from": "2025-07-01", "to": "2025-12-31", "amount_try": 53919.68, "verified": true, "source_url": "" },
+    { "period_id": "2026-1", "label": "Ocak - Haziran 2026", "from": "2026-01-01", "to": "2026-06-30", "amount_try": 64948.77, "verified": true, "source_url": "" },
+    { "period_id": "2026-2", "label": "Temmuz - Aralık 2026", "from": "2026-07-01", "to": "2026-12-31", "amount_try": 73729.87, "verified": true, "source_url": "" },
+    { "period_id": "2027-1", "label": "Ocak - Haziran 2027", "from": "2027-01-01", "to": "2027-06-30", "amount_try": 80000.00, "verified": false, "source_url": "" }
+  ],
+  "notice_weeks": {
+    "less_than_6_months": 2,
+    "from_6_to_18_months": 4,
+    "from_18_to_36_months": 6,
+    "more_than_36_months": 8,
+    "verified": true
+  },
+  "income_tax_rates_for_estimate": {
+    "rates": [0.15, 0.20, 0.27, 0.35, 0.40],
+    "default_rate": 0.15,
+    "verified": true
+  }
+}
