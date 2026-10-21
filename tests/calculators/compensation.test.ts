@@ -1,12 +1,15 @@
 /**
  * compensation.test.ts
- * Birleşik hesaplayıcı testleri.
+ * Birleşik tazminat servisi (calculateCompensation) testleri.
  * Tüm beklenen değerler PRD.md veya prompt'tan alınmıştır (AGENTS.md Kural 4).
  */
 
 import { describe, it, expect } from "vitest";
 import type { RatesConfig } from "@/lib/config/types";
-import { calculateCompensation } from "@/lib/calculators/compensation";
+import {
+  calculateCompensation,
+  calculateCompensationTotals,
+} from "@/lib/calculators/compensation";
 import fixtureRaw from "../fixtures/rates.test.json";
 
 const fixture = fixtureRaw as unknown as RatesConfig;
@@ -18,102 +21,147 @@ const fixture = fixtureRaw as unknown as RatesConfig;
 // Toplam damga = 1518.00 + 708.40 = 2226.40
 // Toplam net = 198482.00 + 78624.93 = 277106.93
 
-describe("Senaryo 1 — birleşik hesap (kıdem + ihbar)", () => {
-  const result = calculateCompensation({
-    startIso: "2022-08-15",
-    exitIso: "2026-08-14",
-    terminationReason: "employer_unfair",
-    noticeWorked: false,
-    grossSalary: 50000,
-    monthlyExtra: 0,
-    annualBonus: 0,
-    selectedIncomeTaxRate: 0.15,
-    rates: fixture,
+describe("Senaryo 1 — birleşik servis hesabı (kıdem + ihbar)", () => {
+  const result = calculateCompensation(
+    {
+      reason: "employer_unfair",
+      noticeUsed: "no",
+      startIso: "2022-08-15",
+      exitIso: "2026-08-14",
+      grossMonthly: "50.000",
+      extraMonthly: 0,
+      annualBonus: 0,
+      incomeTaxRate: 0.15,
+    },
+    fixture
+  );
+
+  it("servis başarılı sonuç dönmeli (status: 'ok')", () => {
+    expect(result.status).toBe("ok");
   });
 
-  it("hesaplama başarılı (ok: true)", () => expect(result.ok).toBe(true));
-
-  it("kıdem brüt = 200000.00", () => {
-    if (result.ok && result.severance.ok && result.severance.eligible) {
+  it("kıdem brüt = 200.000,00 TL", () => {
+    if (result.status === "ok") {
       expect(result.severance.grossSeverance).toBe(200000.00);
+      expect(result.severance.stampTax).toBe(1518.00);
+      expect(result.severance.netSeverance).toBe(198482.00);
     }
   });
 
-  it("ihbar brüt = 93333.33", () => {
-    if (result.ok && result.notice.ok && result.notice.eligible) {
+  it("ihbar brüt = 93.333,33 TL", () => {
+    if (result.status === "ok") {
       expect(result.notice.grossNotice).toBe(93333.33);
+      expect(result.notice.stampTax).toBe(708.40);
+      expect(result.notice.estimatedNetNotice).toBe(78624.93);
     }
   });
 
-  it("toplam brüt = 293333.33", () => {
-    if (result.ok) expect(result.totals.totalGross).toBe(293333.33);
-  });
-
-  it("toplam damga vergisi = 2226.40", () => {
-    if (result.ok) expect(result.totals.totalStampTax).toBe(2226.40);
-  });
-
-  it("toplam tahmini net = 277106.93", () => {
-    if (result.ok) expect(result.totals.totalEstimatedNet).toBe(277106.93);
+  it("toplam brüt = 293.333,33 TL doğrulanmalı", () => {
+    if (result.status === "ok") {
+      const totals = calculateCompensationTotals(result.severance, result.notice);
+      expect(totals.totalGross).toBe(293333.33);
+      expect(totals.totalStampTax).toBe(2226.40);
+      expect(totals.totalEstimatedNet).toBe(277106.93);
+    }
   });
 });
 
 // ─── Emeklilik: Yalnızca Kıdem, İhbar Sıfır ──────────────────────────────────
 
-describe("Emeklilik — yalnızca kıdem (ihbar hak yok)", () => {
-  const result = calculateCompensation({
-    startIso: "2024-10-01",
-    exitIso: "2026-09-30",
-    terminationReason: "retirement_military_marriage",
-    noticeWorked: false,
-    grossSalary: 90000,
-    monthlyExtra: 5000,
-    annualBonus: 60000,
-    rates: fixture,
+describe("Emeklilik — yalnızca kıdem hak edilir, ihbar 0 TL", () => {
+  const result = calculateCompensation(
+    {
+      reason: "retirement_military_marriage",
+      startIso: "2024-10-01",
+      exitIso: "2026-09-30",
+      grossMonthly: "90.000",
+      extraMonthly: "5.000",
+      annualBonus: "60.000",
+    },
+    fixture
+  );
+
+  it("status: 'ok' dönmeli", () => {
+    expect(result.status).toBe("ok");
   });
 
-  it("hesaplama başarılı", () => expect(result.ok).toBe(true));
+  it("kıdem eligible: true, ihbar eligible: false olmalı", () => {
+    if (result.status === "ok") {
+      expect(result.severance.eligible).toBe(true);
+      expect(result.severance.grossSeverance).toBe(147459.74);
+      expect(result.notice.eligible).toBe(false);
+      expect(result.notice.grossNotice).toBe(0);
 
-  it("kıdem eligible: true", () => {
-    if (result.ok && result.severance.ok) expect(result.severance.eligible).toBe(true);
-  });
-
-  it("ihbar eligible: false", () => {
-    if (result.ok && result.notice.ok) expect(result.notice.eligible).toBe(false);
-  });
-
-  it("toplam brüt ihbar kısmı = 0", () => {
-    if (result.ok) expect(result.totals.totalGrossNotice).toBe(0);
-  });
-
-  it("toplam brüt = yalnızca kıdem brütü", () => {
-    if (result.ok && result.severance.ok && result.severance.eligible) {
-      expect(result.totals.totalGross).toBe(result.severance.grossSeverance);
+      const totals = calculateCompensationTotals(result.severance, result.notice);
+      expect(totals.totalGross).toBe(147459.74);
     }
   });
 });
 
-// ─── Kilit Hatası: Hesaplama Yapılmamalı ─────────────────────────────────────
+// ─── Unsure Reason Durumu ───────────────────────────────────────────────────
 
-describe("Doğrulama kilidi hatası — compensation ok:false döner", () => {
+describe("Diğer / Emin Değilim durumu (other_unsure)", () => {
+  const result = calculateCompensation(
+    {
+      reason: "other_unsure",
+      startIso: "2022-08-15",
+      exitIso: "2026-08-14",
+      grossMonthly: 50000,
+    },
+    fixture
+  );
+
+  it("status: 'unsure_reason' dönmeli ve tutar hesaplanmamalı", () => {
+    expect(result.status).toBe("unsure_reason");
+  });
+});
+
+// ─── Geçersiz Girdi Durumu (invalid_input) ───────────────────────────────────
+
+describe("Geçersiz girdi — invalid_input dönmeli", () => {
+  const result = calculateCompensation(
+    {
+      reason: "employer_unfair",
+      // noticeUsed eksik
+      startIso: "2022-08-15",
+      exitIso: "2026-08-14",
+      grossMonthly: 0, // geçersiz maaş
+    },
+    fixture
+  );
+
+  it("status: 'invalid_input' ve alan hataları dönmeli", () => {
+    expect(result.status).toBe("invalid_input");
+    if (result.status === "invalid_input") {
+      expect(result.fieldErrors["noticeUsed"]).toBeDefined();
+      expect(result.fieldErrors["grossMonthly"]).toBeDefined();
+    }
+  });
+});
+
+// ─── Doğrulama Kilidi Engeli (blocked) ───────────────────────────────────────
+
+describe("Doğrulama kilidi engeli — blocked dönmeli", () => {
   const broken: RatesConfig = {
     ...fixture,
     stamp_tax: { ...fixture.stamp_tax, verified: false },
   };
 
-  const result = calculateCompensation({
-    startIso: "2022-08-15",
-    exitIso: "2026-08-14",
-    terminationReason: "employer_unfair",
-    noticeWorked: false,
-    grossSalary: 50000,
-    monthlyExtra: 0,
-    annualBonus: 0,
-    rates: broken,
-  });
+  const result = calculateCompensation(
+    {
+      reason: "employer_unfair",
+      noticeUsed: "no",
+      startIso: "2022-08-15",
+      exitIso: "2026-08-14",
+      grossMonthly: 50000,
+    },
+    broken
+  );
 
-  it("ok: false", () => expect(result.ok).toBe(false));
-  it("code: STAMP_TAX_UNVERIFIED", () => {
-    if (!result.ok) expect(result.code).toBe("STAMP_TAX_UNVERIFIED");
+  it("status: 'blocked' ve kilit hata kodu dönmeli", () => {
+    expect(result.status).toBe("blocked");
+    if (result.status === "blocked") {
+      expect(result.code).toBe("STAMP_TAX_UNVERIFIED");
+    }
   });
 });
