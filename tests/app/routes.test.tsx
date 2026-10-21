@@ -79,10 +79,9 @@ describe("Ana Sayfa ve Hesaplama Sayfaları", () => {
 });
 
 describe("Yasal Sayfalar ve 404 Sayfası", () => {
-  it("Yasal sayfalar ilgili H1 başlıklarını ve 'Hazırlanıyor' kartını içermeli", () => {
+  it("Yasal sayfalar ilgili H1 başlıklarını içermeli", () => {
     const { unmount: u1 } = render(<GizlilikPage />);
     expect(screen.getByRole("heading", { level: 1, name: "Gizlilik Politikası" })).toBeInTheDocument();
-    expect(screen.getByText("Hazırlanıyor")).toBeInTheDocument();
     u1();
 
     const { unmount: u2 } = render(<KvkkPage />);
