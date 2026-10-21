@@ -117,7 +117,7 @@ export default function CalculatorForm({ rates, onCalculate, onReset }: Calculat
             <option key={opt.value} value={opt.value}>{opt.label}</option>
           ))}
         </select>
-        {errors.reason && <span id="reason-err" className="text-xs text-red-600 font-medium">{errors.reason}</span>}
+        {errors.reason && <span id="reason-err" role="alert" className="text-xs text-red-600 font-medium">{errors.reason}</span>}
       </div>
 
       {/* 2. İhbar Öneli */}
@@ -139,7 +139,7 @@ export default function CalculatorForm({ rates, onCalculate, onReset }: Calculat
             <option value="no">Hayır, kullandırılmadı (İhbar tazminatı talep ediyorum)</option>
             <option value="yes">Evet, ihbar süresi boyunca çalıştım</option>
           </select>
-          {errors.noticeUsed && <span id="notice-err" className="text-xs text-red-600 font-medium">{errors.noticeUsed}</span>}
+          {errors.noticeUsed && <span id="notice-err" role="alert" className="text-xs text-red-600 font-medium">{errors.noticeUsed}</span>}
         </div>
       )}
 
@@ -157,7 +157,7 @@ export default function CalculatorForm({ rates, onCalculate, onReset }: Calculat
             aria-describedby={errors.startIso ? "start-err" : undefined}
             className="min-h-[44px] px-3 py-2 border rounded-md border-gray-300 text-sm focus:ring-2 focus:ring-blue-600 bg-white"
           />
-          {errors.startIso && <span id="start-err" className="text-xs text-red-600 font-medium">{errors.startIso}</span>}
+          {errors.startIso && <span id="start-err" role="alert" className="text-xs text-red-600 font-medium">{errors.startIso}</span>}
         </div>
         <div className="flex flex-col gap-1">
           <label htmlFor="exitIso" className="text-sm font-semibold text-gray-900">İşten Çıkış Tarihi *</label>
@@ -171,7 +171,7 @@ export default function CalculatorForm({ rates, onCalculate, onReset }: Calculat
             aria-describedby={errors.exitIso ? "exit-err" : undefined}
             className="min-h-[44px] px-3 py-2 border rounded-md border-gray-300 text-sm focus:ring-2 focus:ring-blue-600 bg-white"
           />
-          {errors.exitIso && <span id="exit-err" className="text-xs text-red-600 font-medium">{errors.exitIso}</span>}
+          {errors.exitIso && <span id="exit-err" role="alert" className="text-xs text-red-600 font-medium">{errors.exitIso}</span>}
         </div>
       </div>
 
@@ -192,7 +192,7 @@ export default function CalculatorForm({ rates, onCalculate, onReset }: Calculat
             placeholder="Örn: 50.000,00"
             className="min-h-[44px] px-3 py-2 border rounded-md border-gray-300 text-sm focus:ring-2 focus:ring-blue-600 bg-white"
           />
-          {errors.grossMonthly && <span id="gross-err" className="text-xs text-red-600 font-medium">{errors.grossMonthly}</span>}
+          {errors.grossMonthly && <span id="gross-err" role="alert" className="text-xs text-red-600 font-medium">{errors.grossMonthly}</span>}
         </div>
 
         <div className="flex flex-col gap-1">
@@ -210,7 +210,7 @@ export default function CalculatorForm({ rates, onCalculate, onReset }: Calculat
             placeholder="Örn: 5.000,00"
             className="min-h-[44px] px-3 py-2 border rounded-md border-gray-300 text-sm focus:ring-2 focus:ring-blue-600 bg-white"
           />
-          {errors.extraMonthly && <span id="extra-err" className="text-xs text-red-600 font-medium">{errors.extraMonthly}</span>}
+          {errors.extraMonthly && <span id="extra-err" role="alert" className="text-xs text-red-600 font-medium">{errors.extraMonthly}</span>}
         </div>
 
         <div className="flex flex-col gap-1">
@@ -228,7 +228,7 @@ export default function CalculatorForm({ rates, onCalculate, onReset }: Calculat
             placeholder="Örn: 60.000,00"
             className="min-h-[44px] px-3 py-2 border rounded-md border-gray-300 text-sm focus:ring-2 focus:ring-blue-600 bg-white"
           />
-          {errors.annualBonus && <span id="bonus-err" className="text-xs text-red-600 font-medium">{errors.annualBonus}</span>}
+          {errors.annualBonus && <span id="bonus-err" role="alert" className="text-xs text-red-600 font-medium">{errors.annualBonus}</span>}
         </div>
       </div>
 

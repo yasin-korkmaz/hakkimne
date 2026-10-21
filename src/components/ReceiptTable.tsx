@@ -11,17 +11,21 @@ export default function ReceiptTable({ rows }: ReceiptTableProps) {
   }
 
   return (
-    <div className="w-full bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-      <div className="px-5 py-4 bg-gray-50/80 border-b border-gray-200">
-        <h3 className="text-base font-semibold text-gray-900">
+    <section
+      role="region"
+      aria-label="Adım Adım Hesaplama Fişi"
+      className="w-full bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden"
+    >
+      <div className="px-4 sm:px-5 py-4 bg-gray-50/80 border-b border-gray-200">
+        <h2 className="text-base font-semibold text-gray-900">
           Adım Adım Hesaplama Fişi
-        </h3>
-        <p className="text-xs text-gray-500 mt-0.5">
+        </h2>
+        <p className="text-xs text-gray-600 mt-0.5">
           Hesaplamada kullanılan tüm parametreler ve döküm
         </p>
       </div>
 
-      <div className="divide-y divide-gray-100">
+      <dl className="divide-y divide-gray-100 m-0">
         {rows.map((row) => {
           const isHighlight = row.kind === "highlight" || row.kind === "total";
           const isSubtext = row.kind === "subtext";
@@ -29,28 +33,28 @@ export default function ReceiptTable({ rows }: ReceiptTableProps) {
           return (
             <div
               key={row.id}
-              className={`flex flex-col sm:flex-row sm:items-center sm:justify-between px-5 py-3 gap-1 sm:gap-4 transition-colors ${
+              className={`flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 sm:px-5 py-3 gap-1 sm:gap-4 transition-colors ${
                 isHighlight
                   ? "bg-blue-50/50 font-semibold"
                   : isSubtext
-                  ? "bg-gray-50/30 text-gray-500"
+                  ? "bg-gray-50/30 text-gray-600"
                   : "hover:bg-gray-50/50"
               }`}
             >
-              <div className="flex-1">
+              <dt className="flex-1">
                 <span
                   className={`${
                     isHighlight
                       ? "text-sm text-blue-950 font-bold"
                       : isSubtext
-                      ? "text-xs text-gray-500 italic"
+                      ? "text-xs text-gray-600 italic"
                       : "text-sm text-gray-700 font-medium"
                   }`}
                 >
                   {row.label}
                 </span>
-              </div>
-              <div className="text-left sm:text-right shrink-0">
+              </dt>
+              <dd className="text-left sm:text-right shrink-0 m-0">
                 <span
                   className={`${
                     isHighlight
@@ -62,11 +66,11 @@ export default function ReceiptTable({ rows }: ReceiptTableProps) {
                 >
                   {row.value}
                 </span>
-              </div>
+              </dd>
             </div>
           );
         })}
-      </div>
-    </div>
+      </dl>
+    </section>
   );
 }

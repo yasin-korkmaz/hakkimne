@@ -41,7 +41,7 @@ export default function TrustBadge({
     return (
       <div
         data-testid="trust-badge-skeleton"
-        className="min-h-[38px] w-full max-w-2xl mx-auto rounded-lg bg-gray-100/60 animate-pulse"
+        className="min-h-[38px] w-full max-w-2xl mx-auto rounded-lg bg-gray-100/60 animate-pulse motion-reduce:animate-none"
         aria-hidden="true"
       />
     );
@@ -62,7 +62,7 @@ export default function TrustBadge({
         role="status"
         className="w-full max-w-2xl mx-auto flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-red-300 bg-red-50 text-red-800 text-xs sm:text-sm font-semibold tracking-wide shadow-sm"
       >
-        <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse shrink-0" />
+        <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse motion-reduce:animate-none shrink-0" />
         <span>TEST VERİSİ — gerçek oran değildir</span>
       </div>
     );

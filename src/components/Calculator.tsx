@@ -51,7 +51,7 @@ export default function Calculator({ ratesData }: CalculatorProps) {
       )}
 
       {/* 2. Girdi Formu */}
-      <div className="bg-white p-6 sm:p-8 rounded-2xl border border-gray-200 shadow-sm">
+      <div className="bg-white p-4 sm:p-8 rounded-2xl border border-gray-200 shadow-sm">
         <CalculatorForm
           rates={rates}
           onCalculate={setResult}
