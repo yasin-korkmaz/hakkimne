@@ -7,6 +7,8 @@ import { siteConfig } from "@/config/site";
 export const metadata: Metadata = {
   title: "İletişim",
   description: "HakkımNe? İletişim ve Hata Bildirim Kanalı",
+  robots: { index: false, follow: false },
+  alternates: { canonical: "/iletisim" },
 };
 
 export default function IletisimPage() {

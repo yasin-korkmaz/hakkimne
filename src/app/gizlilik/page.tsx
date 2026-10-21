@@ -7,6 +7,8 @@ import { siteConfig } from "@/config/site";
 export const metadata: Metadata = {
   title: "Gizlilik Politikası",
   description: "HakkımNe? Gizlilik Politikası ve Sıfır Veri Saklama İlkeleri",
+  robots: { index: false, follow: false },
+  alternates: { canonical: "/gizlilik" },
 };
 
 export default function GizlilikPage() {

@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import { siteConfig } from "@/config/site";
 import TrustBadge from "@/components/TrustBadge";
 import Calculator from "@/components/Calculator";
 import ExplainSection from "@/components/ExplainSection";
@@ -8,7 +9,16 @@ import FaqSection from "@/components/FaqSection";
 export const metadata: Metadata = {
   title: "İhbar Tazminatı Hesaplama",
   description:
-    "4857 Sayılı İş Kanunu Madde 17 kapsamında hizmet süresi kademelerine göre ihbar süresi ve ihbar tazminatı hesaplayıcı.",
+    "4857 sayılı Kanun md. 17 uyarınca çalışma süresi kademelerine göre ihbar süresi ve ihbar tazminatı hesaplayıcı.",
+  alternates: {
+    canonical: "/ihbar-tazminati-hesaplama",
+  },
+  openGraph: {
+    title: `İhbar Tazminatı Hesaplama | ${siteConfig.siteName}`,
+    description:
+      "4857 sayılı Kanun md. 17 uyarınca çalışma süresi kademelerine göre ihbar süresi ve ihbar tazminatı hesaplayıcı.",
+    url: `${siteConfig.siteUrl}/ihbar-tazminati-hesaplama`,
+  },
 };
 
 export default function IhbarTazminatiPage() {

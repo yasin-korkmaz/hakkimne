@@ -1,9 +1,18 @@
 import React from "react";
 import { FAQ_ITEMS } from "@/content/faq";
+import { generateFaqSchema } from "@/lib/seo/faqSchema";
 
 export default function FaqSection() {
+  const faqSchema = generateFaqSchema();
+
   return (
     <section aria-labelledby="faq-heading" className="w-full bg-white rounded-2xl border border-gray-200 p-6 sm:p-8 shadow-sm">
+      {/* FAQPage JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
       <div className="mb-6">
         <h2 id="faq-heading" className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
           Sıkça Sorulan Sorular

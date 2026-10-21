@@ -7,6 +7,8 @@ import { siteConfig } from "@/config/site";
 export const metadata: Metadata = {
   title: "KVKK Aydınlatma Metni",
   description: "6698 Sayılı Kişisel Verilerin Korunması Kanunu Kapsamında Aydınlatma Metni",
+  robots: { index: false, follow: false },
+  alternates: { canonical: "/kvkk" },
 };
 
 export default function KvkkPage() {

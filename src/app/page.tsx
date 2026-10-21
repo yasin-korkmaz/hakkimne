@@ -1,8 +1,25 @@
 import React from "react";
+import type { Metadata } from "next";
+import { siteConfig } from "@/config/site";
 import TrustBadge from "@/components/TrustBadge";
 import Calculator from "@/components/Calculator";
 import ExplainSection from "@/components/ExplainSection";
 import FaqSection from "@/components/FaqSection";
+
+export const metadata: Metadata = {
+  title: "Kıdem ve İhbar Tazminatı Hesaplama",
+  description:
+    "1475 ve 4857 sayılı kanunlar kapsamında güncel tavan ve oranlarla çalışan açık kaynaklı kıdem ve ihbar tazminatı hesaplayıcı.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: `Kıdem ve İhbar Tazminatı Hesaplama | ${siteConfig.siteName}`,
+    description:
+      "1475 ve 4857 sayılı kanunlar kapsamında güncel tavan ve oranlarla çalışan açık kaynaklı kıdem ve ihbar tazminatı hesaplayıcı.",
+    url: siteConfig.siteUrl,
+  },
+};
 
 export default function Home() {
   return (
