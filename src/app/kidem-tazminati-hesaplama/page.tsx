@@ -2,6 +2,8 @@ import React from "react";
 import type { Metadata } from "next";
 import TrustBadge from "@/components/TrustBadge";
 import Calculator from "@/components/Calculator";
+import ExplainSection from "@/components/ExplainSection";
+import FaqSection from "@/components/FaqSection";
 
 export const metadata: Metadata = {
   title: "Kıdem Tazminatı Hesaplama",
@@ -11,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function KidemTazminatiPage() {
   return (
-    <div className="flex flex-col gap-8 w-full">
+    <div className="flex flex-col gap-10 w-full">
       <section className="text-center max-w-2xl mx-auto flex flex-col gap-3">
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
           Kıdem Tazminatı Hesaplama
@@ -28,6 +30,10 @@ export default function KidemTazminatiPage() {
       <section className="w-full">
         <Calculator />
       </section>
+
+      <ExplainSection />
+
+      <FaqSection />
     </div>
   );
 }

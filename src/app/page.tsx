@@ -1,10 +1,12 @@
 import React from "react";
 import TrustBadge from "@/components/TrustBadge";
 import Calculator from "@/components/Calculator";
+import ExplainSection from "@/components/ExplainSection";
+import FaqSection from "@/components/FaqSection";
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-8 w-full">
+    <div className="flex flex-col gap-10 w-full">
       {/* 1. Başlık ve Tanıtım */}
       <section className="text-center max-w-2xl mx-auto flex flex-col gap-3">
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
@@ -25,6 +27,12 @@ export default function Home() {
       <section className="w-full">
         <Calculator />
       </section>
+
+      {/* 4. Nasıl Hesaplanır ve Örnek Hesaplama */}
+      <ExplainSection />
+
+      {/* 5. Sıkça Sorulan Sorular */}
+      <FaqSection />
     </div>
   );
 }
