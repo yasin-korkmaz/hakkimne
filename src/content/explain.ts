@@ -1,9 +1,7 @@
-/* TASLAK — hukuk/İK kontrolü gerekli */
-
 /**
  * explain.ts — Hesaplama Mantığı ve Örnek Hesaplama Verisi
  * Dayanak: 1475 Sayılı Kanun md. 14 & 4857 Sayılı Kanun md. 17
- * Rakamlar: Yalnızca PRD.md Senaryo 1 verileridir (AGENTS.md Kural 4).
+ * Rakamlar: 4 Yıl Çalışma, Haksız Fesih senaryo verileridir (AGENTS.md Kural 4).
  */
 
 export interface FormulaStep {
@@ -66,7 +64,7 @@ export const SCENARIO_1_EXAMPLE: {
   parameters: ExampleRow[];
   results: ExampleRow[];
 } = {
-  title: "Örnek Hesaplama (PRD Senaryo 1: 4 Yıl Çalışma, Haksız Fesih)",
+  title: "Örnek Hesaplama (4 Yıl Çalışma, Haksız Fesih)",
   parameters: [
     { label: "İşe Giriş Tarihi", value: "15.08.2022" },
     { label: "İşten Çıkış Tarihi", value: "14.08.2026" },

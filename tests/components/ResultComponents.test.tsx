@@ -1,7 +1,7 @@
 /**
  * ResultComponents.test.tsx
  * Sonuç arayüzü ve Calculator konteyneri birim testleri.
- * Dayanak: PRD ve prompt gereksinimleri.
+ * Dayanak: PRD ve Aşama 2 iki katmanlı sonuç ekranı gereksinimleri.
  */
 
 import React from "react";
@@ -14,8 +14,8 @@ import type { RatesConfig } from "@/lib/config/types";
 
 const fixture = fixtureRaw as unknown as RatesConfig;
 
-describe("Calculator — Senaryo 1 (PRD 4 Yıl Normal)", () => {
-  it("S1 senaryosu sonucunda '198.482,00 TL' ve 'tahmini' metinlerinin render edildiğini doğrulamalı", async () => {
+describe("Calculator — Senaryo 1 (İki Katmanlı Sonuç ve Toggle)", () => {
+  it("S1 senaryosu sonucunda özet tutarlar görünmeli ve toggle ile ayrıntılı fiş açılabilmeli", async () => {
     const user = userEvent.setup();
     render(<Calculator ratesData={{ rates: fixture, isTestData: false }} />);
 
@@ -37,8 +37,17 @@ describe("Calculator — Senaryo 1 (PRD 4 Yıl Normal)", () => {
     // Net kıdem tazminatı görünmeli
     expect(screen.getAllByText("198.482,00 TL").length).toBeGreaterThan(0);
 
-    // Tahmini kelimesi ihbar etiketinde geçmeli
+    // Tahmini kelimesi ihbar veya özet etiketinde geçmeli
     expect(screen.getAllByText(/tahmini/i).length).toBeGreaterThan(0);
+
+    // Başlangıçta fiş tablosu kapalı olmalı
+    expect(screen.queryByRole("region", { name: /Adım Adım Hesaplama Fişi/i })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Ayrıntılı hesaplamayı göster/i })).toBeInTheDocument();
+
+    // Toggle düğmesine basıldığında ayrıntılı fiş açılmalı
+    await user.click(screen.getByRole("button", { name: /Ayrıntılı hesaplamayı göster/i }));
+    expect(screen.getByRole("region", { name: /Adım Adım Hesaplama Fişi/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Ayrıntılı hesaplamayı gizle/i })).toBeInTheDocument();
   });
 });
 

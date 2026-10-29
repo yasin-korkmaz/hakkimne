@@ -62,20 +62,20 @@ describe("ExplainSection Bileşeni", () => {
     expect(screen.getByText(/İhbar Tazminatı \(Hak Kazanıldıysa\)/i)).toBeInTheDocument();
   });
 
-  it("PRD Senaryo 1 örnek hesaplama tablosu tutarlarını eksiksiz render etmeli", () => {
+  it("örnek hesaplama tablosu tutarlarını eksiksiz render etmeli", () => {
     render(<ExplainSection />);
 
-    // Senaryo 1 başlığı
+    // Örnek hesaplama başlığı
     expect(
-      screen.getByText(/PRD Senaryo 1: 4 Yıl Çalışma, Haksız Fesih/i)
+      screen.getByText(/Örnek Hesaplama \(4 Yıl Çalışma, Haksız Fesih\)/i)
     ).toBeInTheDocument();
 
-    // Senaryo 1 girdi değerleri
+    // Girdi değerleri
     expect(screen.getByText("15.08.2022")).toBeInTheDocument();
     expect(screen.getByText("14.08.2026")).toBeInTheDocument();
     expect(screen.getByText("4 yıl 0 ay 0 gün")).toBeInTheDocument();
 
-    // Senaryo 1 sonuç değerleri
+    // Sonuç değerleri
     expect(screen.getByText("200.000,00 TL")).toBeInTheDocument();
     expect(screen.getByText("1.518,00 TL")).toBeInTheDocument();
     expect(screen.getByText("198.482,00 TL")).toBeInTheDocument();

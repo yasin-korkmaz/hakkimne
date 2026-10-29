@@ -2,16 +2,7 @@
 
 /**
  * Calculator.tsx — Ana Hesaplayıcı Konteyner Bileşeni
- * Dayanak: PRD & AGENTS.md
- *
- * Algoritma:
- *  1. ratesSource üzerinden çalışma oranlarını ve isTestData durumunu alır.
- *  2. isTestData aktifse ekranın en üstünde kırmızı uyarı bandı gösterir.
- *  3. CalculatorForm ile kullanıcı girdilerini toplar.
- *  4. Sonuçları aria-live="polite" konteyneri içinde yönetir:
- *     - blocked: tavan veya kilit hatası mesajı gösterilir, TL tutarı basılmaz.
- *     - unsure_reason: uzman yönlendirme uyarısı gösterilir, TL tutarı basılmaz.
- *     - ok: ResultSummary, ReceiptTable ve NoticeList eksiksiz render edilir.
+ * Dayanak: PRD & AGENTS.md (Aşama 2: İki Katmanlı Sonuç Ekranı)
  */
 
 import React, { useState } from "react";
@@ -33,10 +24,18 @@ export default function Calculator({ ratesData }: CalculatorProps) {
   const { rates, isTestData } = currentRatesData;
 
   const [result, setResult] = useState<CompensationServiceResult | null>(null);
+  const [showDetails, setShowDetails] = useState(false);
 
   const handleReset = () => {
     setResult(null);
+    setShowDetails(false);
   };
+
+  const totalNet =
+    result?.status === "ok"
+      ? (result.severance.eligible ? result.severance.netSeverance : 0) +
+        (result.notice.eligible ? result.notice.estimatedNetNotice : 0)
+      : undefined;
 
   return (
     <div className="w-full max-w-2xl mx-auto flex flex-col gap-6">
@@ -80,17 +79,48 @@ export default function Calculator({ ratesData }: CalculatorProps) {
               </div>
             )}
 
-            {/* Başarılı Hesaplama Durumu */}
+            {/* Başarılı Hesaplama Durumu: İki Katmanlı Sonuç */}
             {result.status === "ok" && (
               <div className="w-full flex flex-col gap-6">
+                {/* Katman 1: Hesaplama Özeti */}
                 <ResultSummary
                   rows={buildReceipt(result, rates)}
                   severanceEligible={result.severance.eligible}
                   noticeEligible={result.notice.eligible}
+                  totalNet={totalNet}
                 />
 
-                <ReceiptTable rows={buildReceipt(result, rates)} />
+                {/* Katman 2 Toggle Butonu */}
+                <div className="w-full flex justify-center pt-1">
+                  <button
+                    type="button"
+                    onClick={() => setShowDetails((prev) => !prev)}
+                    aria-expanded={showDetails}
+                    aria-controls="detailed-receipt"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-blue-200 bg-white hover:bg-blue-50 text-blue-700 font-semibold text-sm transition-all shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 min-h-[44px]"
+                  >
+                    <span>{showDetails ? "Ayrıntılı hesaplamayı gizle" : "Ayrıntılı hesaplamayı göster"}</span>
+                    <svg
+                      className={`w-4 h-4 transition-transform duration-200 ${showDetails ? "rotate-180" : ""}`}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      aria-hidden="true"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                </div>
 
+                {/* Katman 2: Adım Adım Hesaplama Fişi */}
+                {showDetails && (
+                  <div id="detailed-receipt" className="w-full">
+                    <ReceiptTable rows={buildReceipt(result, rates)} />
+                  </div>
+                )}
+
+                {/* Durum / Tavan Uyarıları */}
                 <NoticeList notices={buildNotices(result)} />
               </div>
             )}
