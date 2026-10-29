@@ -1,9 +1,9 @@
 import React from "react";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import TrustBadge from "@/components/TrustBadge";
 import Calculator from "@/components/Calculator";
-import ExplainSection from "@/components/ExplainSection";
 import FaqSection from "@/components/FaqSection";
 
 export const metadata: Metadata = {
@@ -45,8 +45,15 @@ export default function Home() {
         <Calculator />
       </section>
 
-      {/* 4. Nasıl Hesaplanır ve Örnek Hesaplama */}
-      <ExplainSection />
+      {/* 4. Detaylı Hesaplama Yöntemi Bağlantısı */}
+      <div className="text-center -mt-4">
+        <Link
+          href="/rehber"
+          className="inline-flex items-center gap-1.5 text-sm sm:text-base font-semibold text-blue-600 hover:text-blue-700 hover:underline min-h-[44px] py-2 px-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+        >
+          Detaylı hesaplama yöntemini incele →
+        </Link>
+      </div>
 
       {/* 5. Sıkça Sorulan Sorular */}
       <FaqSection />

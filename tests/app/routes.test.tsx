@@ -1,7 +1,7 @@
 /**
  * routes.test.tsx
  * Sayfa rotaları ve layout bileşenleri render testleri.
- * Dayanak: PRD ve Görev 12 gereksinimleri.
+ * Dayanak: PRD, Görev 12 & Aşama 2 gereksinimleri.
  */
 
 import React from "react";
@@ -10,6 +10,7 @@ import { render, screen } from "@testing-library/react";
 
 import RootLayout from "@/app/layout";
 import HomePage from "@/app/page";
+import RehberPage from "@/app/rehber/page";
 import KidemTazminatiPage from "@/app/kidem-tazminati-hesaplama/page";
 import IhbarTazminatiPage from "@/app/ihbar-tazminati-hesaplama/page";
 import GizlilikPage from "@/app/gizlilik/page";
@@ -32,6 +33,8 @@ describe("Layout ve Navigasyon Bileşenleri", () => {
     expect(screen.getByRole("link", { name: /HakkımNe\?/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /^Kıdem Tazminatı$/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /^İhbar Tazminatı$/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /^Rehber$/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /^Hakkımızda$/i })).toBeInTheDocument();
   });
 
   it("Footer içinde yasal bağlantılar ve DISCLAIMER yer almalı", () => {
@@ -60,6 +63,20 @@ describe("Ana Sayfa ve Hesaplama Sayfaları", () => {
     render(<HomePage />);
     expect(
       screen.getByRole("heading", { level: 1, name: "Kıdem ve İhbar Tazminatı Hesaplama" })
+    ).toBeInTheDocument();
+  });
+
+  it("Ana sayfada detaylı hesaplama yöntemini incele bağlantısı yer almalı", () => {
+    render(<HomePage />);
+    expect(
+      screen.getByRole("link", { name: /Detaylı hesaplama yöntemini incele/i })
+    ).toHaveAttribute("href", "/rehber");
+  });
+
+  it("Rehber sayfasında H1 'Kıdem ve İhbar Tazminatı Hesaplama Mantığı' yer almalı", () => {
+    render(<RehberPage />);
+    expect(
+      screen.getByRole("heading", { level: 1, name: "Kıdem ve İhbar Tazminatı Hesaplama Mantığı" })
     ).toBeInTheDocument();
   });
 

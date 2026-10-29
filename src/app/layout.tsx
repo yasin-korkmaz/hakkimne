@@ -54,26 +54,38 @@ export default function RootLayout({
 
         {/* Üst Menü (Header) */}
         <header className="w-full bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
-          <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between gap-2">
             <Link
               href="/"
-              className="text-xl font-bold text-blue-600 hover:text-blue-700 transition-colors py-2 px-1 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 min-h-[44px] flex items-center"
+              className="text-xl font-bold text-blue-600 hover:text-blue-700 transition-colors py-2 px-1 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 min-h-[44px] flex items-center shrink-0"
             >
               {siteConfig.siteName}
             </Link>
 
-            <nav aria-label="Ana Menü" className="flex items-center gap-2 sm:gap-4 text-sm font-medium">
+            <nav aria-label="Ana Menü" className="flex items-center gap-1 sm:gap-3 text-xs sm:text-sm font-medium">
               <Link
                 href="/kidem-tazminati-hesaplama"
-                className="text-slate-700 hover:text-blue-600 transition-colors min-h-[44px] flex items-center px-3 py-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+                className="text-slate-700 hover:text-blue-600 transition-colors min-h-[44px] flex items-center px-2 sm:px-3 py-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
               >
                 Kıdem Tazminatı
               </Link>
               <Link
                 href="/ihbar-tazminati-hesaplama"
-                className="text-slate-700 hover:text-blue-600 transition-colors min-h-[44px] flex items-center px-3 py-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+                className="text-slate-700 hover:text-blue-600 transition-colors min-h-[44px] flex items-center px-2 sm:px-3 py-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
               >
                 İhbar Tazminatı
+              </Link>
+              <Link
+                href="/rehber"
+                className="text-slate-700 hover:text-blue-600 transition-colors min-h-[44px] flex items-center px-2 sm:px-3 py-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+              >
+                Rehber
+              </Link>
+              <Link
+                href="/hakkinda"
+                className="text-slate-700 hover:text-blue-600 transition-colors min-h-[44px] flex items-center px-2 sm:px-3 py-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+              >
+                Hakkımızda
               </Link>
             </nav>
           </div>
