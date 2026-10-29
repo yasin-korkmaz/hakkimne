@@ -7,5 +7,5 @@ export const siteConfig = {
   siteUrl: "https://hakkimne-djq.pages.dev",
   contactEmail: "yasinkorkmaz.devtr@gmail.com",
   lastContentUpdate: "2026-10-21",
-  allowIndexing: false, // Varsayılan olarak indeksleme kapalı (ALLOW_INDEXING = false)
+  allowIndexing: true, // Faz 4: Kontrollü yayın kapsamında arama motoru indekslemesi açık
 };

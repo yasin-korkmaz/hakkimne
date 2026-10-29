@@ -1,6 +1,6 @@
 /**
  * seo.test.ts — SEO Altyapısı ve Şema Doğrulama Testleri
- * Dayanak: PRD & Görev 16 gereksinimleri.
+ * Dayanak: PRD, Görev 16 & Faz 4 Kontrollü Yayın gereksinimleri.
  */
 
 import { describe, it, expect } from "vitest";
@@ -17,12 +17,12 @@ import { metadata as kvkkMetadata } from "@/app/kvkk/page";
 import { metadata as rootMetadata } from "@/app/layout";
 
 describe("SEO — siteConfig ve İndeksleme Kontrolü", () => {
-  it("ALLOW_INDEXING varsayılan olarak false olmalı", () => {
-    expect(siteConfig.allowIndexing).toBe(false);
+  it("ALLOW_INDEXING Faz 4 Kontrollü Yayın kapsamında true olmalı", () => {
+    expect(siteConfig.allowIndexing).toBe(true);
   });
 
-  it("ALLOW_INDEXING false iken root metadata robots noindex/nofollow olmalı", () => {
-    expect(rootMetadata.robots).toEqual({ index: false, follow: false });
+  it("ALLOW_INDEXING true iken root metadata robots index/follow olmalı", () => {
+    expect(rootMetadata.robots).toEqual({ index: true, follow: true });
   });
 
   it("yasal sayfalarda (kvkk vb.) robots noindex olmalı", () => {
@@ -72,10 +72,17 @@ describe("SEO — Sitemap ve Robots Fonksiyonları", () => {
     expect(urls).toContain(`${siteConfig.siteUrl}/gizlilik`);
   });
 
-  it("robots() allowIndexing false iken disallow '/' kuralı dönmeli", () => {
+  it("robots() allowIndexing true iken allow '/' ve yasal sayfalar için disallow dönmeli", () => {
     const rob = robots();
     const rules = Array.isArray(rob.rules) ? rob.rules[0] : rob.rules;
-    expect(rules?.disallow).toBe("/");
+    expect(rules?.allow).toBe("/");
+    expect(rules?.disallow).toEqual([
+      "/gizlilik",
+      "/kvkk",
+      "/cerez-politikasi",
+      "/kullanim-kosullari",
+      "/iletisim",
+    ]);
     expect(rob.sitemap).toBe(`${siteConfig.siteUrl}/sitemap.xml`);
   });
 });
