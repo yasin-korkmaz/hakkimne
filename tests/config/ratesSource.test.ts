@@ -22,8 +22,8 @@ describe("ratesSource — getRates", () => {
 
     const result = getRates();
     expect(result.isTestData).toBe(false);
-    // Üretim dosyasındaki stamp_tax.verified false'tur
-    expect(result.rates.stamp_tax.verified).toBe(false);
+    // Üretim dosyasındaki stamp_tax.verified artık resmî oranlar girildiği için true'dur
+    expect(result.rates.stamp_tax.verified).toBe(true);
   });
 
   it("geliştirme modunda NEXT_PUBLIC_USE_TEST_RATES=true iken test oranları ve isTestData=true dönmeli", () => {
@@ -42,6 +42,7 @@ describe("ratesSource — getRates", () => {
 
     const result = getRates();
     expect(result.isTestData).toBe(false);
-    expect(result.rates.stamp_tax.verified).toBe(false);
+    // Üretim dosyasındaki stamp_tax.verified artık resmî oranlar girildiği için true'dur
+    expect(result.rates.stamp_tax.verified).toBe(true);
   });
 });

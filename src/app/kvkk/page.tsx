@@ -1,5 +1,3 @@
-/* TASLAK — hukuk kontrolü gerekli */
-
 import React from "react";
 import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
@@ -28,7 +26,7 @@ export default function KvkkPage() {
           <h2 className="text-lg font-bold text-slate-900">1. Veri Sorumlusu</h2>
           <p>
             Bu aydınlatma metni, 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) uyarınca, veri sorumlusu sıfatıyla{" "}
-            <strong>[SİTE SAHİBİ ADI]</strong> (varsa ticari unvan: <em>[ŞİRKET UNVANI]</em>, Vergi No: <em>[VERGİ DAİRESİ / NO]</em>, Adres: <em>[ADRES]</em>) tarafından hazırlanmıştır.
+            <strong>Yasin Korkmaz</strong> tarafından hazırlanmıştır.
           </p>
         </section>
 
@@ -45,10 +43,10 @@ export default function KvkkPage() {
         <section className="flex flex-col gap-2">
           <h2 className="text-lg font-bold text-slate-900">3. Teknik Erişim Kayıtları ve Güvenlik</h2>
           <p>
-            Web sitemiz statik dosyalar olarak barındırılmaktadır. Barındırma sağlayıcısı (Cloudflare) teknik erişim kayıtlarında IP adresi gibi verileri ağ güvenliğini sağlama ve kötüye kullanımı engelleme amacıyla geçici olarak tutabilir [DOĞRULANACAK].
+            Web sitemiz statik dosyalar olarak barındırılmaktadır. Barındırma sağlayıcısı (Cloudflare) teknik erişim kayıtlarında IP adresi gibi verileri ağ güvenliğini sağlama ve kötüye kullanımı engelleme amacıyla geçici olarak tutabilir.
           </p>
           <p>
-            Reklam: [DOĞRULANACAK: şu an reklam yoktur]. Analitik: [DOĞRULANACAK: şu an aktif analitik kodu bulunmamaktadır].
+            Reklam: Şu an reklam kodu bulunmamaktadır. Analitik: Şu an aktif analitik kodu bulunmamaktadır.
           </p>
         </section>
 
@@ -58,7 +56,7 @@ export default function KvkkPage() {
             KVKK'nın 11. maddesi uyarınca veri sorumlusuna başvurarak kişisel verilerinizin işlenip işlenmediğini öğrenme ve yasal haklarınızı kullanma yetkiniz bulunmaktadır. Sitemiz hesaplama girdilerini toplamadığından sistemlerimizde kişisel veri havuzu oluşmamaktadır.
           </p>
           <p>
-            Veri sorumlusu temsilcisi: <em>[DPO / VERİ SORUMLUSU TEMSİLCİSİ]</em>. Her türlü soru, görüş ve başvurularınız için resmi iletişim kanalı e-posta adresimizdir:{" "}
+            Veri sorumlusu temsilcisi: <em>Yasin Korkmaz</em>. Her türlü soru, görüş ve başvurularınız için resmi iletişim kanalı e-posta adresimizdir:{" "}
             <a href={`mailto:${siteConfig.contactEmail}`} className="text-blue-600 hover:underline font-medium">
               {siteConfig.contactEmail}
             </a>.

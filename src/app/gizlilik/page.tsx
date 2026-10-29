@@ -1,5 +1,3 @@
-/* TASLAK — hukuk kontrolü gerekli */
-
 import React from "react";
 import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
@@ -27,14 +25,14 @@ export default function GizlilikPage() {
         <section className="flex flex-col gap-2">
           <h2 className="text-lg font-bold text-slate-900">1. Genel İlke ve Amaç</h2>
           <p>
-            {siteConfig.siteName} (işletici: <strong>[SİTE SAHİBİ ADI]</strong>), çalışanların ve işverenlerin yasal kıdem ve ihbar tazminatı haklarını şeffaf ve güvenli bir şekilde hesaplayabilmesi için kurulmuştur. Gizliliğinizi korumak temel tasarım ilkemizdir.
+            {siteConfig.siteName} (işletici: <strong>Yasin Korkmaz</strong>), çalışanların ve işverenlerin yasal kıdem ve ihbar tazminatı haklarını şeffaf ve güvenli bir şekilde hesaplayabilmesi için kurulmuştur. Gizliliğinizi korumak temel tasarım ilkemizdir.
           </p>
         </section>
 
         <section className="flex flex-col gap-2">
           <h2 className="text-lg font-bold text-slate-900">2. Sıfır Veri Depolama Garantisi</h2>
           <p>
-            Hesaplama motorumuz tamamen <strong>istemci taraflı (tarayıcınızda)</strong> çalışır. Form üzerinden girdiğiniz çıplak maaş, ek ödemeler, primler ve işe giriş-çıkış tarihleri hiçbir şekilde bir sunucuya iletilmez, kaydedilmez ve depolanmaz. Sayfayı kapattığınızda veya yenilediğinizde girdiğiniz veriler silinir.
+            Hesaplama motorumuz tamamen <strong>istemci taraflı (tarayıcınızda)</strong> çalışır. Hesaplama formuna girdiğiniz maaş, tarih ve tazminat bilgileri hesaplama için doğrudan tarayıcınızda işlenir ve HakkımNe? uygulama sunucusuna gönderilmez. Ancak barındırma sağlayıcımız (Cloudflare), hizmet güvenliği ve analitik amaçlarla IP adresi gibi teknik bağlantı verilerini kendi altyapısında otomatik olarak işleyebilir.
           </p>
           <p>
             Sitede üyelik veya hesap oluşturma özelliği bulunmamaktadır; bu nedenle ad, soyad, e-posta veya kimlik numarası gibi kullanıcı profili verileri talep edilmez.
@@ -47,10 +45,10 @@ export default function GizlilikPage() {
             Sitemizde kullanıcı davranışlarını takip eden üçüncü taraf reklam pikselleri veya pazarlama izleyicileri yer almaz.
           </p>
           <ul className="list-disc pl-5 flex flex-col gap-1 text-slate-600">
-            <li>Reklam: [DOĞRULANACAK: şu an reklam yoktur].</li>
-            <li>Analitik: [DOĞRULANACAK: şu an aktif analitik kodu bulunmamaktadır].</li>
+            <li>Reklam: Şu an reklam kodu bulunmamaktadır.</li>
+            <li>Analitik: Şu an aktif analitik kodu bulunmamaktadır.</li>
             <li>
-              Barındırma: Barındırma sağlayıcımız (Cloudflare), siber saldırıları önlemek ve ağ güvenliğini temin etmek amacıyla geçici IP erişim kayıtları tutabilir [DOĞRULANACAK].
+              Barındırma: Barındırma sağlayıcımız (Cloudflare), siber saldırıları önlemek ve ağ güvenliğini temin etmek amacıyla geçici IP erişim kayıtları tutabilir.
             </li>
           </ul>
         </section>

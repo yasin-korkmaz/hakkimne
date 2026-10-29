@@ -20,7 +20,7 @@ describe("Yasal ve Kurumsal Sayfa Taslakları", () => {
     render(<KvkkPage />);
     expect(screen.getByRole("heading", { level: 1, name: /KVKK Aydınlatma Metni/i })).toBeInTheDocument();
     expect(screen.getByText(/tamamen tarayıcınızda \(istemci tarafında\)/i)).toBeInTheDocument();
-    expect(screen.getByText(/\[SİTE SAHİBİ ADI\]/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Yasin Korkmaz/i).length).toBeGreaterThan(0);
     expect(screen.getByRole("link", { name: siteConfig.contactEmail })).toHaveAttribute(
       "href",
       `mailto:${siteConfig.contactEmail}`
@@ -31,7 +31,7 @@ describe("Yasal ve Kurumsal Sayfa Taslakları", () => {
     render(<GizlilikPage />);
     expect(screen.getByRole("heading", { level: 1, name: /Gizlilik Politikası/i })).toBeInTheDocument();
     expect(screen.getByText(/Sıfır Veri Depolama Garantisi/i)).toBeInTheDocument();
-    expect(screen.getByText(/\[DOĞRULANACAK: şu an aktif analitik kodu bulunmamaktadır\]/i)).toBeInTheDocument();
+    expect(screen.getByText(/Şu an aktif analitik kodu bulunmamaktadır/i)).toBeInTheDocument();
   });
 
   it("Çerez Politikası sayfasında pazarlama çerezi kullanılmadığı belirtilmeli", () => {

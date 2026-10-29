@@ -1,5 +1,3 @@
-/* TASLAK — hukuk kontrolü gerekli */
-
 import React from "react";
 import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
@@ -27,7 +25,7 @@ export default function KullanimKosullariPage() {
         <section className="flex flex-col gap-2">
           <h2 className="text-lg font-bold text-slate-900">1. Kabul ve Kapsam</h2>
           <p>
-            {siteConfig.siteName} (işletici: <strong>[SİTE SAHİBİ ADI]</strong>) web sitesini ziyaret ederek ve hesaplama araçlarını kullanarak bu sayfada belirtilen koşulları peşinen kabul etmiş sayılırsınız.
+            {siteConfig.siteName} (işletici: <strong>Yasin Korkmaz</strong>) web sitesini ziyaret ederek ve hesaplama araçlarını kullanarak bu sayfada belirtilen koşulları peşinen kabul etmiş sayılırsınız.
           </p>
         </section>
 
@@ -51,7 +49,7 @@ export default function KullanimKosullariPage() {
         <section className="flex flex-col gap-2">
           <h2 className="text-lg font-bold text-slate-900">4. Sorumluluk Reddi (Disclaimer)</h2>
           <p>
-            Hesaplama formüllerinin güncelliği ve doğruluğu azami özenle korunsa dahi, kullanıcıların yanlış veri girişi yapması, mevzuat değişiklikleri veya yargı kararlarındaki farklı yorumlardan kaynaklanabilecek doğrudan veya dolaylı maddi/manevi zararlardan site işleticisi <strong>[SİTE SAHİBİ ADI]</strong> sorumlu tutulamaz.
+            Hesaplama formüllerinin güncelliği ve doğruluğu azami özenle korunsa dahi, kullanıcıların yanlış veri girişi yapması, mevzuat değişiklikleri veya yargı kararlarındaki farklı yorumlardan kaynaklanabilecek doğrudan veya dolaylı maddi/manevi zararlardan site işleticisi <strong>Yasin Korkmaz</strong> sorumlu tutulamaz.
           </p>
           <p>
             Görüş ve bildirimleriniz için:{" "}

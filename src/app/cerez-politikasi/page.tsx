@@ -1,5 +1,3 @@
-/* TASLAK — hukuk kontrolü gerekli */
-
 import React from "react";
 import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
@@ -34,14 +32,14 @@ export default function CerezPolitikasiPage() {
         <section className="flex flex-col gap-2">
           <h2 className="text-lg font-bold text-slate-900">2. Sitemizde Çerez Kullanımı</h2>
           <p>
-            {siteConfig.siteName} (işletici: <strong>[SİTE SAHİBİ ADI]</strong>), kullanıcıları izleyen, profil çıkaran veya hedefli reklam gösteren pazarlama çerezleri <strong>kullanmamaktadır</strong>.
+            {siteConfig.siteName} (işletici: <strong>Yasin Korkmaz</strong>), kullanıcıları izleyen, profil çıkaran veya hedefli reklam gösteren pazarlama çerezleri <strong>kullanmamaktadır</strong>.
           </p>
           <ul className="list-disc pl-5 flex flex-col gap-1 text-slate-600">
             <li>Kullanıcı / Pazarlama Çerezleri: Kullanılmamaktadır.</li>
-            <li>Analitik Çerezleri: [DOĞRULANACAK: şu an aktif analitik kodu bulunmamaktadır].</li>
-            <li>Reklam Çerezleri: [DOĞRULANACAK: şu an reklam yoktur].</li>
+            <li>Analitik Çerezleri: Şu an aktif analitik kodu bulunmamaktadır.</li>
+            <li>Reklam Çerezleri: Şu an reklam kodu bulunmamaktadır.</li>
             <li>
-              Teknik ve Güvenlik Çerezleri: Barındırma altyapımız (Cloudflare), bot saldırılarını ve kötü niyetli istekleri engellemek için geçici güvenlik çerezleri işletebilir [DOĞRULANACAK].
+              Teknik ve Güvenlik Çerezleri: Barındırma altyapımız (Cloudflare), bot saldırılarını ve kötü niyetli istekleri engellemek için geçici güvenlik çerezleri işletebilir.
             </li>
           </ul>
         </section>
