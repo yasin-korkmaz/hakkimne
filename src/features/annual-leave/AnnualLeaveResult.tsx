@@ -35,7 +35,7 @@ export default function AnnualLeaveResult({ result }: AnnualLeaveResultProps) {
       </div>
 
       {/* Özet Bilgi Kartları */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-xs text-center flex flex-col gap-1">
           <span className="text-xs text-slate-500 font-medium">Hak Edilen Toplam</span>
           <span className="text-xl font-extrabold text-slate-800">{totalEarnedDays} gün</span>
