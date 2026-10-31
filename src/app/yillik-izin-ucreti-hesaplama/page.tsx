@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import AnnualLeaveCalculator from "@/features/annual-leave/AnnualLeaveCalculator";
 
@@ -34,6 +35,16 @@ export default function YillikIzinPage() {
       <section className="w-full">
         <AnnualLeaveCalculator />
       </section>
+
+      {/* Detaylı Hesaplama Yöntemi Bağlantısı */}
+      <div className="text-center -mt-4">
+        <Link
+          href="/rehber/yillik-izin"
+          className="inline-flex items-center gap-1.5 text-sm sm:text-base font-semibold text-teal-600 hover:text-teal-700 hover:underline min-h-[44px] py-2 px-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600"
+        >
+          Detaylı hesaplama yöntemini incele →
+        </Link>
+      </div>
 
       <section className="max-w-2xl mx-auto w-full flex flex-col gap-4 text-sm text-slate-700 leading-relaxed">
         <h2 className="text-lg font-bold text-slate-900">Yıllık İzin Hakkında</h2>

@@ -11,6 +11,7 @@ import { render, screen } from "@testing-library/react";
 import RootLayout from "@/app/layout";
 import HomePage from "@/app/page";
 import RehberPage from "@/app/rehber/page";
+import YillikIzinRehberPage from "@/app/rehber/yillik-izin/page";
 import YillikIzinPage from "@/app/yillik-izin-ucreti-hesaplama/page";
 import KidemTazminatiPage from "@/app/kidem-tazminati-hesaplama/page";
 import IhbarTazminatiPage from "@/app/ihbar-tazminati-hesaplama/page";
@@ -96,10 +97,20 @@ describe("Ana Sayfa ve Hesaplama Sayfaları", () => {
     ).toBeInTheDocument();
   });
 
-  it("Yıllık İzin sayfasında H1 'Yıllık İzin Ücreti Hesaplama' yer almalı", () => {
+  it("Yıllık İzin sayfasında H1 'Yıllık İzin Ücreti Hesaplama' ve rehber bağlantısı yer almalı", () => {
     render(<YillikIzinPage />);
     expect(
       screen.getByRole("heading", { level: 1, name: "Yıllık İzin Ücreti Hesaplama" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /Detaylı hesaplama yöntemini incele/i })
+    ).toHaveAttribute("href", "/rehber/yillik-izin");
+  });
+
+  it("Yıllık İzin Rehber sayfasında H1 'Yıllık İzin Hesaplama Mantığı' yer almalı", () => {
+    render(<YillikIzinRehberPage />);
+    expect(
+      screen.getByRole("heading", { level: 1, name: "Yıllık İzin Hesaplama Mantığı" })
     ).toBeInTheDocument();
   });
 });
