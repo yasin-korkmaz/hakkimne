@@ -63,6 +63,11 @@ describe("Layout ve Navigasyon Bileşenleri", () => {
     expect(
       screen.getByText(/Bu araç bilgilendirme amaçlıdır, hukuki danışmanlık değildir/i)
     ).toBeInTheDocument();
+    expect(screen.getByText(/Kurucu ve Geliştirici:/i)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Yasin Korkmaz/i })).toHaveAttribute(
+      "href",
+      "https://github.com/yasin-korkmaz"
+    );
   });
 });
 

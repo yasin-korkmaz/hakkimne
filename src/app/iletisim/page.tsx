@@ -33,7 +33,7 @@ export default function IletisimPage() {
         <section className="flex flex-col gap-2">
           <h2 className="text-lg font-bold text-slate-900">E-Posta ile İletişim</h2>
           <p>
-            {siteConfig.siteName} işleticisi <strong>[SİTE SAHİBİ ADI]</strong> ile resmi olarak e-posta üzerinden iletişime geçebilirsiniz:
+            {siteConfig.siteName} işleticisi <strong>Yasin Korkmaz</strong> ile resmi olarak e-posta üzerinden iletişime geçebilirsiniz:
           </p>
           <div className="pt-1">
             <a

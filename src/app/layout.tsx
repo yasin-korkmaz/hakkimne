@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -62,41 +62,7 @@ export default function RootLayout({
         </main>
 
         {/* Alt Bilgi (Footer) */}
-        <footer className="w-full bg-white border-t border-slate-200 py-8 text-xs text-slate-600 overflow-x-hidden">
-          <div className="max-w-4xl mx-auto px-4 flex flex-col gap-6">
-            {/* Yasal Bağlantılar */}
-            <nav aria-label="Yasal Bağlantılar" className="flex flex-wrap gap-x-4 sm:gap-x-6 gap-y-1 justify-center sm:justify-start">
-              <Link href="/gizlilik" className="hover:text-slate-900 transition-colors min-h-[44px] flex items-center px-2 py-1 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600">
-                Gizlilik Politikası
-              </Link>
-              <Link href="/kvkk" className="hover:text-slate-900 transition-colors min-h-[44px] flex items-center px-2 py-1 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600">
-                KVKK Aydınlatma Metni
-              </Link>
-              <Link href="/cerez-politikasi" className="hover:text-slate-900 transition-colors min-h-[44px] flex items-center px-2 py-1 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600">
-                Çerez Politikası
-              </Link>
-              <Link href="/kullanim-kosullari" className="hover:text-slate-900 transition-colors min-h-[44px] flex items-center px-2 py-1 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600">
-                Kullanım Koşulları
-              </Link>
-              <Link href="/hakkinda" className="hover:text-slate-900 transition-colors min-h-[44px] flex items-center px-2 py-1 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600">
-                Hakkında
-              </Link>
-              <Link href="/iletisim" className="hover:text-slate-900 transition-colors min-h-[44px] flex items-center px-2 py-1 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600">
-                İletişim
-              </Link>
-            </nav>
-
-            {/* Sorumluluk Reddi (Disclaimer) ve Güncelleme Bilgisi */}
-            <div className="flex flex-col gap-2 border-t border-slate-100 pt-4 text-slate-700 leading-relaxed">
-              <p>
-                <strong>Yasal Uyarı:</strong> Bu araç bilgilendirme amaçlıdır, hukuki danışmanlık değildir. Sonuç, fesih nedeni ve ek koşullara göre değişebilir.
-              </p>
-              <p className="text-slate-600">
-                Son Mevzuat ve İçerik Güncellemesi: {siteConfig.lastContentUpdate}
-              </p>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </body>
     </html>
   );

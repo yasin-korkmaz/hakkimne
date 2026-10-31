@@ -1,5 +1,3 @@
-/* TASLAK — hukuk kontrolü gerekli */
-
 import React from "react";
 import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
@@ -10,6 +8,11 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
   alternates: { canonical: "/hakkinda" },
 };
+
+/**
+ * HakkindaPage — Platform Hakkında Bilgilendirme Sayfası
+ * Kurucu/geliştirici Yasin Korkmaz bilgisi, TDD deterministik motor felsefesi ve mevzuat dayanakları.
+ */
 
 export default function HakkindaPage() {
   return (
@@ -25,14 +28,26 @@ export default function HakkindaPage() {
 
       <div className="flex flex-col gap-6 text-sm sm:text-base text-slate-700 leading-relaxed bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm">
         <section className="flex flex-col gap-2">
-          <h2 className="text-lg font-bold text-slate-900">1. Misyonumuz</h2>
+          <h2 className="text-lg font-bold text-slate-900">1. Misyonumuz ve Kuruluş Amacı</h2>
           <p>
-            {siteConfig.siteName} (işletici: <strong>[SİTE SAHİBİ ADI]</strong>), iş sözleşmesi feshedilen veya ayrılma arifesinde olan çalışanların ve işverenlerin haklarını en anlaşılır ve hatasız biçimde öğrenebilmesi amacıyla geliştirilmiş <strong>bağımsız ve açık bir hesaplama platformudur</strong>.
+            {siteConfig.siteName} (kurucu ve geliştirici:{" "}
+            <a
+              href="https://github.com/yasin-korkmaz"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-blue-600 hover:text-blue-700 hover:underline"
+            >
+              Yasin Korkmaz
+            </a>
+            ), iş sözleşmesi feshedilen veya ayrılma arifesinde olan çalışanların ve işverenlerin haklarını en anlaşılır ve hatasız biçimde öğrenebilmesi amacıyla geliştirilmiş <strong>bağımsız ve açık bir hesaplama platformudur</strong>.
+          </p>
+          <p>
+            Platform; işçi haklarını şeffaf, mevzuata tam uyumlu ve yapay zekâ hatalarından (halüsinasyonlardan) arındırılmış, deterministik ve test odaklı geliştirme (TDD) metodolojisiyle inşa edilmiş güvenilir bir motorla sunmak amacıyla Yasin Korkmaz tarafından geliştirilmiştir.
           </p>
         </section>
 
         <section className="flex flex-col gap-2">
-          <h2 className="text-lg font-bold text-slate-900">2. Veri Kaynakları ve Güncellik</h2>
+          <h2 className="text-lg font-bold text-slate-900">2. Deterministik Motor ve Veri Kaynakları</h2>
           <p>
             Hesaplama algoritmamız ve referans oranlarımız yürürlükteki mevzuat hükümlerine dayanır:
           </p>

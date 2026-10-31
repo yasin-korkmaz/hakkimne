@@ -52,6 +52,11 @@ describe("Yasal ve Kurumsal Sayfa Taslakları", () => {
     expect(screen.getByRole("heading", { level: 1, name: /Hakkında/i })).toBeInTheDocument();
     expect(screen.getByText(/bağımsız ve açık bir hesaplama platformudur/i)).toBeInTheDocument();
     expect(screen.getByText(/1475 Sayılı İş Kanunu Madde 14/i)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Yasin Korkmaz/i })).toHaveAttribute(
+      "href",
+      "https://github.com/yasin-korkmaz"
+    );
+    expect(screen.getByText(/deterministik ve test odaklı geliştirme/i)).toBeInTheDocument();
   });
 
   it("İletişim sayfasında doğrudan e-posta ve 'Bu hesaplamada hata gördüm' mailto bağlantısı yer almalı", () => {
