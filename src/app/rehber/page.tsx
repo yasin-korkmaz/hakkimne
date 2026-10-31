@@ -36,7 +36,23 @@ export default function RehberPage() {
       {/* 2. Detaylı Hesaplama Adımları ve Örnek Senaryo */}
       <ExplainSection />
 
-      {/* 3. Hesaplayıcıya Dönüş Butonu */}
+      {/* 3. Diğer Rehberler (Yıllık İzin vb.) */}
+      <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <h2 className="text-lg font-bold text-slate-900">Yıllık Ücretli İzin Rehberi</h2>
+          <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-xl">
+            4857 sayılı Kanun md. 53 ve 59 kapsamında kıdem kademeleri, 18/50 yaş istisnası ve kullanılmayan izin ücreti formüllerini inceleyin.
+          </p>
+        </div>
+        <Link
+          href="/rehber/yillik-izin"
+          className="inline-flex items-center justify-center px-4 py-2.5 bg-teal-50 text-teal-700 font-semibold text-sm rounded-xl hover:bg-teal-100 transition-colors border border-teal-200 whitespace-nowrap min-h-[44px] shrink-0"
+        >
+          Yıllık İzin Rehberini İncele →
+        </Link>
+      </section>
+
+      {/* 4. Hesaplayıcıya Dönüş Butonu */}
       <section className="text-center bg-blue-50/60 border border-blue-100 rounded-2xl p-6 sm:p-8 flex flex-col items-center gap-3">
         <h2 className="text-lg sm:text-xl font-bold text-slate-900">
           Kendi Tazminatınızı Hesaplamaya Hazır mısınız?
