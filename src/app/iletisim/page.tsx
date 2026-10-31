@@ -6,7 +6,7 @@ import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "İletişim",
-  description: "HakkımNe? İletişim ve Hata Bildirim Kanalı",
+  description: "HakkımNedir? İletişim ve Hata Bildirim Kanalı",
   robots: { index: false, follow: false },
   alternates: { canonical: "/iletisim" },
 };
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function IletisimPage() {
   const bugReportSubject = encodeURIComponent("Bu hesaplamada hata gördüm");
   const bugReportBody = encodeURIComponent(
-    "Merhaba,\n\nHakkımNe? hesaplama aracında aşağıdaki girdilerle bir hesaplama yaptım ve şu hatayı fark ettim:\n\n- İşe Giriş Tarihi:\n- İşten Çıkış Tarihi:\n- Fesih Nedeni:\n- Aylık Brüt Maaş:\n- Karşılaştığım Durum / Beklenen Sonuç:\n\nTeşekkürler."
+    "Merhaba,\n\nHakkımNedir? hesaplama aracında aşağıdaki girdilerle bir hesaplama yaptım ve şu hatayı fark ettim:\n\n- İşe Giriş Tarihi:\n- İşten Çıkış Tarihi:\n- Fesih Nedeni:\n- Aylık Brüt Maaş:\n- Karşılaştığım Durum / Beklenen Sonuç:\n\nTeşekkürler."
   );
   const bugReportMailto = `mailto:${siteConfig.contactEmail}?subject=${bugReportSubject}&body=${bugReportBody}`;
 

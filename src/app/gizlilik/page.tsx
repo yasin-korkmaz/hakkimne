@@ -4,7 +4,7 @@ import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Gizlilik Politikası",
-  description: "HakkımNe? Gizlilik Politikası ve Sıfır Veri Saklama İlkeleri",
+  description: "HakkımNedir? Gizlilik Politikası ve Sıfır Veri Saklama İlkeleri",
   robots: { index: false, follow: false },
   alternates: { canonical: "/gizlilik" },
 };
@@ -32,7 +32,7 @@ export default function GizlilikPage() {
         <section className="flex flex-col gap-2">
           <h2 className="text-lg font-bold text-slate-900">2. Sıfır Veri Depolama Garantisi</h2>
           <p>
-            Hesaplama motorumuz tamamen <strong>istemci taraflı (tarayıcınızda)</strong> çalışır. Hesaplama formuna girdiğiniz maaş, tarih ve tazminat bilgileri hesaplama için doğrudan tarayıcınızda işlenir ve HakkımNe? uygulama sunucusuna gönderilmez. Ancak barındırma sağlayıcımız (Cloudflare), hizmet güvenliği ve analitik amaçlarla IP adresi gibi teknik bağlantı verilerini kendi altyapısında otomatik olarak işleyebilir.
+            Hesaplama motorumuz tamamen <strong>istemci taraflı (tarayıcınızda)</strong> çalışır. Hesaplama formuna girdiğiniz maaş, tarih ve tazminat bilgileri hesaplama için doğrudan tarayıcınızda işlenir ve HakkımNedir? uygulama sunucusuna gönderilmez. Ancak barındırma sağlayıcımız (Cloudflare), hizmet güvenliği ve analitik amaçlarla IP adresi gibi teknik bağlantı verilerini kendi altyapısında otomatik olarak işleyebilir.
           </p>
           <p>
             Sitede üyelik veya hesap oluşturma özelliği bulunmamaktadır; bu nedenle ad, soyad, e-posta veya kimlik numarası gibi kullanıcı profili verileri talep edilmez.

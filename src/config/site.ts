@@ -3,7 +3,7 @@
  */
 
 export const siteConfig = {
-  siteName: "HakkımNe?",
+  siteName: "HakkımNedir?",
   siteUrl: "https://hakkimne-djq.pages.dev",
   contactEmail: "yasinkorkmaz.devtr@gmail.com",
   lastContentUpdate: "2026-10-21",

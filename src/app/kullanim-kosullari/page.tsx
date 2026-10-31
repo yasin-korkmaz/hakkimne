@@ -4,7 +4,7 @@ import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Kullanım Koşulları",
-  description: "HakkımNe? Kullanım Koşulları ve Sorumluluk Reddi Beyanı",
+  description: "HakkımNedir? Kullanım Koşulları ve Sorumluluk Reddi Beyanı",
   robots: { index: false, follow: false },
   alternates: { canonical: "/kullanim-kosullari" },
 };

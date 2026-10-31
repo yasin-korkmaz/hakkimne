@@ -12,7 +12,7 @@ describe("Header — Responsive Navigasyon ve Hamburger Menü", () => {
   it("Logo ve masaüstü navigasyon bağlantıları render edilmeli", () => {
     render(<Header />);
 
-    expect(screen.getByRole("link", { name: /HakkımNe\?/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /HakkımNedir\?/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /^Kıdem Tazminatı$/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /^İhbar Tazminatı$/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /^Yıllık İzin$/i })).toBeInTheDocument();

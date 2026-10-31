@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.siteName}`,
   },
   description:
-    "1475 ve 4857 sayılı kanunlar kapsamında güncel tavan ve oranlarla çalışan açık kaynaklı kıdem ve ihbar tazminatı hesaplayıcı.",
+    "HakkımNedir? — 1475 ve 4857 sayılı kanunlar kapsamında güncel tavan ve oranlarla çalışan açık kaynaklı kıdem ve ihbar tazminatı hesaplayıcı.",
   robots: siteConfig.allowIndexing
     ? { index: true, follow: true }
     : { index: false, follow: false },
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `Kıdem ve İhbar Tazminatı Hesaplama | ${siteConfig.siteName}`,
     description:
-      "1475 ve 4857 sayılı kanunlar kapsamında güncel tavan ve oranlarla çalışan açık kaynaklı kıdem ve ihbar tazminatı hesaplayıcı.",
+      "HakkımNedir? — 1475 ve 4857 sayılı kanunlar kapsamında güncel tavan ve oranlarla çalışan açık kaynaklı kıdem ve ihbar tazminatı hesaplayıcı.",
     url: siteConfig.siteUrl,
     siteName: siteConfig.siteName,
     locale: "tr_TR",

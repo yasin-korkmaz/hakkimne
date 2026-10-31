@@ -4,7 +4,7 @@ import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Çerez Politikası",
-  description: "HakkımNe? Çerez (Cookie) Kullanımı ve Güvenlik İlkeleri",
+  description: "HakkımNedir? Çerez (Cookie) Kullanımı ve Güvenlik İlkeleri",
   robots: { index: false, follow: false },
   alternates: { canonical: "/cerez-politikasi" },
 };
