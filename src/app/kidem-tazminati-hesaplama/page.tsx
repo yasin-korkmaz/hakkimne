@@ -20,6 +20,11 @@ export const metadata: Metadata = {
   },
 };
 
+/**
+ * Kıdem Tazminatı Hesaplama Sayfası
+ * Açıklama ve formüller kaldırılmış olup doğrudan sade form, sonuç ve rehber yönlendirmesi içerir.
+ */
+
 export default function KidemTazminatiPage() {
   return (
     <div className="flex flex-col gap-10 w-full">
