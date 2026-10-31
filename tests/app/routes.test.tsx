@@ -15,6 +15,7 @@ import YillikIzinRehberPage from "@/app/rehber/yillik-izin/page";
 import FazlaMesaiRehberPage from "@/app/rehber/fazla-mesai/page";
 import YillikIzinPage from "@/app/yillik-izin-ucreti-hesaplama/page";
 import FazlaMesaiPage from "@/app/fazla-mesai-hesaplama/page";
+import IhbarSuresiPage from "@/app/ihbar-suresi-hesaplama/page";
 import KidemTazminatiPage from "@/app/kidem-tazminati-hesaplama/page";
 import IhbarTazminatiPage from "@/app/ihbar-tazminati-hesaplama/page";
 import GizlilikPage from "@/app/gizlilik/page";
@@ -39,6 +40,7 @@ describe("Layout ve Navigasyon Bileşenleri", () => {
     expect(screen.getByRole("link", { name: /^İhbar Tazminatı$/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /^Yıllık İzin$/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /^Fazla Mesai$/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /^İhbar Süresi$/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /^Rehber$/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /^Hakkımızda$/i })).toBeInTheDocument();
   });
@@ -132,6 +134,16 @@ describe("Ana Sayfa ve Hesaplama Sayfaları", () => {
     expect(
       screen.getByRole("heading", { level: 1, name: "Fazla Mesai Hesaplama Mantığı" })
     ).toBeInTheDocument();
+  });
+
+  it("İhbar Süresi sayfasında H1 ve rehber bağlantısı yer almalı", () => {
+    render(<IhbarSuresiPage />);
+    expect(
+      screen.getByRole("heading", { level: 1, name: "İhbar Süresi ve Bitiş Tarihi Hesaplama" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /Detaylı hesaplama yöntemini incele/i })
+    ).toHaveAttribute("href", "/rehber");
   });
 });
 
