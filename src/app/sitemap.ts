@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/fazla-mesai-hesaplama",
     "/rehber",
     "/rehber/yillik-izin",
+    "/rehber/fazla-mesai",
     "/hakkinda",
     "/iletisim",
     "/kullanim-kosullari",

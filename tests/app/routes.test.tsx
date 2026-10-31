@@ -12,6 +12,7 @@ import RootLayout from "@/app/layout";
 import HomePage from "@/app/page";
 import RehberPage from "@/app/rehber/page";
 import YillikIzinRehberPage from "@/app/rehber/yillik-izin/page";
+import FazlaMesaiRehberPage from "@/app/rehber/fazla-mesai/page";
 import YillikIzinPage from "@/app/yillik-izin-ucreti-hesaplama/page";
 import FazlaMesaiPage from "@/app/fazla-mesai-hesaplama/page";
 import KidemTazminatiPage from "@/app/kidem-tazminati-hesaplama/page";
@@ -116,10 +117,20 @@ describe("Ana Sayfa ve Hesaplama Sayfaları", () => {
     ).toBeInTheDocument();
   });
 
-  it("Fazla Mesai sayfasında H1 'Fazla Mesai Hesaplama' yer almalı", () => {
+  it("Fazla Mesai sayfasında H1 'Fazla Mesai Hesaplama' ve rehber bağlantısı yer almalı", () => {
     render(<FazlaMesaiPage />);
     expect(
       screen.getByRole("heading", { level: 1, name: "Fazla Mesai Hesaplama" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /Detaylı hesaplama yöntemini incele/i })
+    ).toHaveAttribute("href", "/rehber/fazla-mesai");
+  });
+
+  it("Fazla Mesai Rehber sayfasında H1 'Fazla Mesai Hesaplama Mantığı' yer almalı", () => {
+    render(<FazlaMesaiRehberPage />);
+    expect(
+      screen.getByRole("heading", { level: 1, name: "Fazla Mesai Hesaplama Mantığı" })
     ).toBeInTheDocument();
   });
 });

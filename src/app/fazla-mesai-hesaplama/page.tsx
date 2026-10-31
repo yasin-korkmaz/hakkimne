@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import OvertimeCalculator from "@/features/overtime/OvertimeCalculator";
 
@@ -36,6 +37,16 @@ export default function FazlaMesaiPage() {
       <section className="w-full">
         <OvertimeCalculator />
       </section>
+
+      {/* Detaylı Hesaplama Yöntemi Bağlantısı */}
+      <div className="text-center -mt-4">
+        <Link
+          href="/rehber/fazla-mesai"
+          className="inline-flex items-center gap-1.5 text-sm sm:text-base font-semibold text-blue-600 hover:text-blue-700 hover:underline min-h-[44px] py-2 px-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+        >
+          Detaylı hesaplama yöntemini incele →
+        </Link>
+      </div>
 
       {/* 3. Yasal Dayanak ve Formül Bilgilendirmesi */}
       <section className="max-w-2xl mx-auto w-full flex flex-col gap-4 text-sm text-slate-700 leading-relaxed bg-white border border-slate-200 rounded-2xl p-6 shadow-xs">
