@@ -11,6 +11,7 @@ import { render, screen } from "@testing-library/react";
 import RootLayout from "@/app/layout";
 import HomePage from "@/app/page";
 import RehberPage from "@/app/rehber/page";
+import YillikIzinPage from "@/app/yillik-izin-ucreti-hesaplama/page";
 import KidemTazminatiPage from "@/app/kidem-tazminati-hesaplama/page";
 import IhbarTazminatiPage from "@/app/ihbar-tazminati-hesaplama/page";
 import GizlilikPage from "@/app/gizlilik/page";
@@ -33,6 +34,7 @@ describe("Layout ve Navigasyon Bileşenleri", () => {
     expect(screen.getByRole("link", { name: /HakkımNe\?/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /^Kıdem Tazminatı$/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /^İhbar Tazminatı$/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /^Yıllık İzin$/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /^Rehber$/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /^Hakkımızda$/i })).toBeInTheDocument();
   });
@@ -91,6 +93,13 @@ describe("Ana Sayfa ve Hesaplama Sayfaları", () => {
     render(<IhbarTazminatiPage />);
     expect(
       screen.getByRole("heading", { level: 1, name: "İhbar Tazminatı Hesaplama" })
+    ).toBeInTheDocument();
+  });
+
+  it("Yıllık İzin sayfasında H1 'Yıllık İzin Ücreti Hesaplama' yer almalı", () => {
+    render(<YillikIzinPage />);
+    expect(
+      screen.getByRole("heading", { level: 1, name: "Yıllık İzin Ücreti Hesaplama" })
     ).toBeInTheDocument();
   });
 });
