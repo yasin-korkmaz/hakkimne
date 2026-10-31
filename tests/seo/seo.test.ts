@@ -69,6 +69,7 @@ describe("SEO — Sitemap ve Robots Fonksiyonları", () => {
     expect(urls).toContain(`${siteConfig.siteUrl}/kidem-tazminati-hesaplama`);
     expect(urls).toContain(`${siteConfig.siteUrl}/ihbar-tazminati-hesaplama`);
     expect(urls).toContain(`${siteConfig.siteUrl}/yillik-izin-ucreti-hesaplama`);
+    expect(urls).toContain(`${siteConfig.siteUrl}/fazla-mesai-hesaplama`);
     expect(urls).toContain(`${siteConfig.siteUrl}/rehber`);
     expect(urls).toContain(`${siteConfig.siteUrl}/rehber/yillik-izin`);
     expect(urls).toContain(`${siteConfig.siteUrl}/kvkk`);

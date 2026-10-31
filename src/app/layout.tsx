@@ -82,6 +82,12 @@ export default function RootLayout({
                 Yıllık İzin
               </Link>
               <Link
+                href="/fazla-mesai-hesaplama"
+                className="text-slate-700 hover:text-blue-600 transition-colors min-h-[44px] flex items-center px-2 sm:px-3 py-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+              >
+                Fazla Mesai
+              </Link>
+              <Link
                 href="/rehber"
                 className="text-slate-700 hover:text-blue-600 transition-colors min-h-[44px] flex items-center px-2 sm:px-3 py-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
               >
