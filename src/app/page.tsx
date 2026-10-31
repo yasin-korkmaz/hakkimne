@@ -4,7 +4,6 @@ import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import TrustBadge from "@/components/TrustBadge";
 import Calculator from "@/components/Calculator";
-import FaqSection from "@/components/FaqSection";
 
 export const metadata: Metadata = {
   title: "Kıdem ve İhbar Tazminatı Hesaplama",
@@ -54,9 +53,6 @@ export default function Home() {
           Detaylı hesaplama yöntemini incele →
         </Link>
       </div>
-
-      {/* 5. Sıkça Sorulan Sorular */}
-      <FaqSection />
     </div>
   );
 }
