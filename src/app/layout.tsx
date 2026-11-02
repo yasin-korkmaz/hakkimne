@@ -35,7 +35,13 @@ export const metadata: Metadata = {
       "1475 ve 4857 sayılı kanunlar kapsamında güncel tavan ve oranlarla çalışan açık kaynaklı kıdem ve ihbar tazminatı hesaplayıcı.",
   },
   icons: {
-    icon: "/icon.svg",
+    icon: [
+      { url: "/logo-icon.svg", type: "image/svg+xml" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/logo-icon.svg",
+    apple: "/logo-icon.svg",
   },
 };
 
