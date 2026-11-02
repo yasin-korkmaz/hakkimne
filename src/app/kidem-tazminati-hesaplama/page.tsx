@@ -4,6 +4,11 @@ import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import TrustBadge from "@/components/TrustBadge";
 import Calculator from "@/components/Calculator";
+import JsonLd from "@/components/JsonLd";
+import {
+  buildBreadcrumbSchema,
+  buildWebApplicationSchema,
+} from "@/lib/seo/jsonLd";
 
 export const metadata: Metadata = {
   title: "Kıdem Tazminatı Hesaplama",
@@ -18,6 +23,12 @@ export const metadata: Metadata = {
       "1475 sayılı Kanun md. 14 uyarınca hizmet süresi ve güncel tavan tutarına göre kıdem tazminatı hesaplama aracı.",
     url: `${siteConfig.siteUrl}/kidem-tazminati-hesaplama`,
   },
+  twitter: {
+    card: "summary_large_image",
+    title: `Kıdem Tazminatı Hesaplama | ${siteConfig.siteName}`,
+    description:
+      "1475 sayılı Kanun md. 14 uyarınca hizmet süresi ve güncel tavan tutarına göre kıdem tazminatı hesaplama aracı.",
+  },
 };
 
 /**
@@ -26,8 +37,22 @@ export const metadata: Metadata = {
  */
 
 export default function KidemTazminatiPage() {
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Ana Sayfa", url: "/" },
+    { name: "Kıdem Tazminatı Hesaplama", url: "/kidem-tazminati-hesaplama" },
+  ]);
+  const appSchema = buildWebApplicationSchema({
+    name: "Kıdem Tazminatı Hesaplama Aracı",
+    path: "/kidem-tazminati-hesaplama",
+    description:
+      "1475 sayılı Kanun md. 14 uyarınca hizmet süresi ve güncel tavan tutarına göre kıdem tazminatı hesaplama aracı.",
+  });
+
   return (
     <div className="flex flex-col gap-10 w-full">
+      <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={appSchema} />
+
       <section className="text-center max-w-2xl mx-auto flex flex-col gap-3">
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
           Kıdem Tazminatı Hesaplama

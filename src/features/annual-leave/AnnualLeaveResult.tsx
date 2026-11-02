@@ -22,11 +22,11 @@ export default function AnnualLeaveResult({ result }: AnnualLeaveResultProps) {
   return (
     <div className="w-full flex flex-col gap-4">
       {/* Özet Kartı — Brüt İzin Ücreti */}
-      <div className="bg-gradient-to-br from-teal-50 to-cyan-50/70 border border-teal-200 rounded-2xl p-5 sm:p-6 shadow-xs flex flex-col items-center text-center">
-        <span className="text-xs font-bold uppercase tracking-wider text-teal-700">
+      <div className="bg-white border border-teal-200 rounded-xl p-5 sm:p-6 shadow-xs flex flex-col items-center text-center">
+        <span className="text-xs font-bold uppercase tracking-wider text-[#0F766E]">
           Kullanılmayan İzin Brüt Ücreti
         </span>
-        <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-1.5">
+        <p className="text-3xl sm:text-4xl font-extrabold text-[#0B1F33] tracking-tight mt-1.5">
           {formatTRY(grossLeavePay)}
         </p>
         <span className="text-xs text-slate-500 mt-1.5">

@@ -2,6 +2,8 @@ import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
+import JsonLd from "@/components/JsonLd";
+import { buildBreadcrumbSchema, buildArticleSchema } from "@/lib/seo/jsonLd";
 
 export const metadata: Metadata = {
   title: "Fazla Mesai Hesaplama Mantığı ve Kuralları",
@@ -16,11 +18,32 @@ export const metadata: Metadata = {
       "4857 sayılı İş Kanunu md. 41 kapsamında saatlik ücret (Brüt/225), %25 ve %50 zamlı fazla çalışma hesaplama rehberi.",
     url: `${siteConfig.siteUrl}/rehber/fazla-mesai`,
   },
+  twitter: {
+    card: "summary_large_image",
+    title: `Fazla Mesai Hesaplama Mantığı ve Kuralları | ${siteConfig.siteName}`,
+    description:
+      "4857 sayılı İş Kanunu md. 41 kapsamında saatlik ücret (Brüt/225), %25 ve %50 zamlı fazla çalışma hesaplama rehberi.",
+  },
 };
 
 export default function FazlaMesaiRehberPage() {
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Ana Sayfa", url: "/" },
+    { name: "Rehber", url: "/rehber" },
+    { name: "Fazla Mesai Rehberi", url: "/rehber/fazla-mesai" },
+  ]);
+  const articleSchema = buildArticleSchema({
+    headline: "Fazla Mesai Hesaplama Mantığı ve Kuralları",
+    description:
+      "4857 sayılı İş Kanunu md. 41 kapsamında saatlik ücret (Brüt/225), %25 ve %50 zamlı fazla çalışma hesaplama rehberi.",
+    path: "/rehber/fazla-mesai",
+  });
+
   return (
     <div className="flex flex-col gap-10 w-full">
+      <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={articleSchema} />
+
       {/* 1. Başlık ve Giriş */}
       <section className="text-center max-w-2xl mx-auto flex flex-col gap-3">
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">

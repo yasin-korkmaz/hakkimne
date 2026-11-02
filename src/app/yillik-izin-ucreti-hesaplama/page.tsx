@@ -3,6 +3,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import AnnualLeaveCalculator from "@/features/annual-leave/AnnualLeaveCalculator";
+import JsonLd from "@/components/JsonLd";
+import {
+  buildBreadcrumbSchema,
+  buildWebApplicationSchema,
+} from "@/lib/seo/jsonLd";
 
 export const metadata: Metadata = {
   title: "Yıllık İzin Ücreti Hesaplama",
@@ -17,11 +22,31 @@ export const metadata: Metadata = {
       "4857 sayılı İş Kanunu md. 53 ve 59 uyarınca hizmet süresi, yaş ve maaşa göre kullanılmayan yıllık izin ücretini hesaplama aracı.",
     url: `${siteConfig.siteUrl}/yillik-izin-ucreti-hesaplama`,
   },
+  twitter: {
+    card: "summary_large_image",
+    title: `Yıllık İzin Ücreti Hesaplama | ${siteConfig.siteName}`,
+    description:
+      "4857 sayılı İş Kanunu md. 53 ve 59 uyarınca hizmet süresi, yaş ve maaşa göre kullanılmayan yıllık izin ücretini hesaplama aracı.",
+  },
 };
 
 export default function YillikIzinPage() {
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Ana Sayfa", url: "/" },
+    { name: "Yıllık İzin Ücreti Hesaplama", url: "/yillik-izin-ucreti-hesaplama" },
+  ]);
+  const appSchema = buildWebApplicationSchema({
+    name: "Yıllık İzin Ücreti Hesaplama Aracı",
+    path: "/yillik-izin-ucreti-hesaplama",
+    description:
+      "4857 sayılı İş Kanunu md. 53 ve 59 uyarınca hizmet süresi, yaş ve maaşa göre kullanılmayan yıllık izin ücretini hesaplama aracı.",
+  });
+
   return (
     <div className="flex flex-col gap-10 w-full">
+      <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={appSchema} />
+
       <section className="text-center max-w-2xl mx-auto flex flex-col gap-3">
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
           Yıllık İzin Ücreti Hesaplama

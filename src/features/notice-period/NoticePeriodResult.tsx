@@ -48,11 +48,11 @@ export default function NoticePeriodResultView({ result }: NoticePeriodResultPro
   return (
     <div className="w-full flex flex-col gap-4">
       {/* 1. Katman: Özet Kartı — Olası Son İş Günü */}
-      <div className="bg-gradient-to-br from-blue-50 to-indigo-50/70 border border-blue-200 rounded-2xl p-5 sm:p-6 shadow-xs flex flex-col items-center text-center">
-        <span className="text-xs font-bold uppercase tracking-wider text-blue-700">
+      <div className="bg-white border border-slate-200 rounded-xl p-5 sm:p-6 shadow-xs flex flex-col items-center text-center">
+        <span className="text-xs font-bold uppercase tracking-wider text-[#1769E0]">
           Olası Son İş Günü (Bitiş Tarihi)
         </span>
-        <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-1.5 font-mono">
+        <p className="text-3xl sm:text-4xl font-extrabold text-[#0B1F33] tracking-tight mt-1.5 font-mono">
           {formatDateTR(endDate)}
         </p>
         <span className="text-xs text-slate-500 mt-1.5">

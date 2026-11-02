@@ -2,7 +2,7 @@
 
 /**
  * Header.tsx — Responsive Üst Navigasyon Bileşeni
- * Masaüstünde yatay menü, mobil ekranlarda hamburger menü açılır paneli.
+ * Kurumsal SVG logo, marka adı, slogan ve masaüstü/mobil navigasyon paneli.
  * Dayanak: WCAG 2.1 AA (min 44px dokunma alanı ve klavye erişilebilirliği).
  */
 
@@ -16,6 +16,10 @@ const NAV_LINKS = [
   { href: "/yillik-izin-ucreti-hesaplama", label: "Yıllık İzin" },
   { href: "/fazla-mesai-hesaplama", label: "Fazla Mesai" },
   { href: "/ihbar-suresi-hesaplama", label: "İhbar Süresi" },
+  { href: "/hak-takip-merkezi", label: "Hak Takip" },
+  { href: "/belge-kontrolu", label: "Belge Kontrolü" },
+  { href: "/kariyerim", label: "Kariyerim" },
+  { href: "/kamu", label: "Kamu & KPSS" },
   { href: "/rehber", label: "Rehber" },
   { href: "/hakkinda", label: "Hakkımızda" },
 ];
@@ -34,13 +38,31 @@ export default function Header() {
   return (
     <header className="w-full bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
       <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between gap-2">
-        {/* Logo */}
+        {/* Logo ve Slogan */}
         <Link
           href="/"
           onClick={closeMenu}
-          className="text-xl font-bold text-blue-600 hover:text-blue-700 transition-colors py-2 px-1 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 min-h-[44px] flex items-center shrink-0"
+          aria-label={`${siteConfig.siteName} - İş hayatında hakkını bil`}
+          className="flex items-center gap-2.5 py-1 px-1 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1769E0] min-h-[44px] shrink-0"
         >
-          {siteConfig.siteName}
+          {/* Logo İkonu */}
+          <img
+            src="/logo-icon.svg"
+            alt=""
+            width="32"
+            height="32"
+            className="w-8 h-8 shrink-0"
+            aria-hidden="true"
+          />
+          <div className="flex flex-col leading-none">
+            <span className="text-lg font-extrabold tracking-tight">
+              <span className="text-[#0B1F33]">Hakkım</span>
+              <span className="text-[#1769E0]">Nedir?</span>
+            </span>
+            <span className="text-[10px] font-medium text-slate-500 hidden sm:block mt-0.5">
+              İş hayatında hakkını bil
+            </span>
+          </div>
         </Link>
 
         {/* Masaüstü Navigasyon (md ve üzeri) */}
@@ -49,7 +71,7 @@ export default function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-slate-700 hover:text-blue-600 transition-colors min-h-[44px] flex items-center px-2 py-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 whitespace-nowrap"
+              className="text-slate-700 hover:text-[#1769E0] transition-colors min-h-[44px] flex items-center px-2 py-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1769E0] whitespace-nowrap"
             >
               {link.label}
             </Link>
@@ -63,7 +85,7 @@ export default function Header() {
           aria-expanded={isOpen}
           aria-controls="mobile-menu"
           aria-label={isOpen ? "Menüyü kapat" : "Menüyü aç"}
-          className="md:hidden flex items-center justify-center p-2.5 rounded-lg text-slate-700 hover:text-blue-600 hover:bg-slate-100 transition-colors min-h-[44px] min-w-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+          className="md:hidden flex items-center justify-center p-2.5 rounded-lg text-slate-700 hover:text-[#1769E0] hover:bg-slate-100 transition-colors min-h-[44px] min-w-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1769E0]"
         >
           {isOpen ? (
             /* Kapat (X) İkonu */
@@ -105,7 +127,7 @@ export default function Header() {
               key={link.href}
               href={link.href}
               onClick={closeMenu}
-              className="text-slate-800 hover:text-blue-600 hover:bg-slate-50 transition-colors min-h-[44px] flex items-center px-3 py-2 rounded-lg text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+              className="text-slate-800 hover:text-[#1769E0] hover:bg-slate-50 transition-colors min-h-[44px] flex items-center px-3 py-2 rounded-lg text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1769E0]"
             >
               {link.label}
             </Link>

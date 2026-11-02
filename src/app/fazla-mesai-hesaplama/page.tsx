@@ -3,6 +3,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import OvertimeCalculator from "@/features/overtime/OvertimeCalculator";
+import JsonLd from "@/components/JsonLd";
+import {
+  buildBreadcrumbSchema,
+  buildWebApplicationSchema,
+} from "@/lib/seo/jsonLd";
 
 export const metadata: Metadata = {
   title: "Fazla Mesai Hesaplama",
@@ -17,11 +22,31 @@ export const metadata: Metadata = {
       "4857 sayılı İş Kanunu md. 41 uyarınca haftalık çalışma saatine göre %25 ve %50 zamlı fazla çalışma ve fazla sürelerle çalışma ücreti hesaplama aracı.",
     url: `${siteConfig.siteUrl}/fazla-mesai-hesaplama`,
   },
+  twitter: {
+    card: "summary_large_image",
+    title: `Fazla Mesai Hesaplama | ${siteConfig.siteName}`,
+    description:
+      "4857 sayılı İş Kanunu md. 41 uyarınca haftalık çalışma saatine göre %25 ve %50 zamlı fazla çalışma ve fazla sürelerle çalışma ücreti hesaplama aracı.",
+  },
 };
 
 export default function FazlaMesaiPage() {
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Ana Sayfa", url: "/" },
+    { name: "Fazla Mesai Hesaplama", url: "/fazla-mesai-hesaplama" },
+  ]);
+  const appSchema = buildWebApplicationSchema({
+    name: "Fazla Mesai Hesaplama Aracı",
+    path: "/fazla-mesai-hesaplama",
+    description:
+      "4857 sayılı İş Kanunu md. 41 uyarınca haftalık çalışma saatine göre %25 ve %50 zamlı fazla çalışma ve fazla sürelerle çalışma ücreti hesaplama aracı.",
+  });
+
   return (
     <div className="flex flex-col gap-10 w-full">
+      <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={appSchema} />
+
       {/* 1. Başlık ve Açıklama */}
       <section className="text-center max-w-2xl mx-auto flex flex-col gap-3">
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">

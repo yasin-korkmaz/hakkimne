@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import ExplainSection from "@/components/ExplainSection";
+import JsonLd from "@/components/JsonLd";
+import { buildBreadcrumbSchema, buildArticleSchema } from "@/lib/seo/jsonLd";
 
 export const metadata: Metadata = {
   title: "Kıdem ve İhbar Tazminatı Hesaplama Mantığı",
@@ -17,11 +19,31 @@ export const metadata: Metadata = {
       "1475 ve 4857 sayılı kanunlar kapsamında kıdem ve ihbar tazminatı hesaplama formülleri, tavan uygulaması ve örnek senaryolar.",
     url: `${siteConfig.siteUrl}/rehber`,
   },
+  twitter: {
+    card: "summary_large_image",
+    title: `Kıdem ve İhbar Tazminatı Hesaplama Mantığı | ${siteConfig.siteName}`,
+    description:
+      "1475 ve 4857 sayılı kanunlar kapsamında kıdem ve ihbar tazminatı hesaplama formülleri, tavan uygulaması ve örnek senaryolar.",
+  },
 };
 
 export default function RehberPage() {
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Ana Sayfa", url: "/" },
+    { name: "Rehber", url: "/rehber" },
+  ]);
+  const articleSchema = buildArticleSchema({
+    headline: "Kıdem ve İhbar Tazminatı Hesaplama Mantığı",
+    description:
+      "1475 ve 4857 sayılı kanunlar kapsamında kıdem ve ihbar tazminatı hesaplama formülleri, tavan uygulaması ve örnek senaryolar.",
+    path: "/rehber",
+  });
+
   return (
     <div className="flex flex-col gap-10 w-full">
+      <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={articleSchema} />
+
       {/* 1. Başlık ve Giriş */}
       <section className="text-center max-w-2xl mx-auto flex flex-col gap-3">
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">

@@ -3,6 +3,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import NoticePeriodCalculator from "@/features/notice-period/NoticePeriodCalculator";
+import JsonLd from "@/components/JsonLd";
+import {
+  buildBreadcrumbSchema,
+  buildWebApplicationSchema,
+} from "@/lib/seo/jsonLd";
 
 export const metadata: Metadata = {
   title: "İhbar Süresi Hesaplama",
@@ -17,11 +22,31 @@ export const metadata: Metadata = {
       "4857 sayılı İş Kanunu md. 17 uyarınca hizmet sürenize göre yasal ihbar sürenizi ve sözleşmenizin olası son iş gününü hesaplayın.",
     url: `${siteConfig.siteUrl}/ihbar-suresi-hesaplama`,
   },
+  twitter: {
+    card: "summary_large_image",
+    title: `İhbar Süresi Hesaplama | ${siteConfig.siteName}`,
+    description:
+      "4857 sayılı İş Kanunu md. 17 uyarınca hizmet sürenize göre yasal ihbar sürenizi ve sözleşmenizin olası son iş gününü hesaplayın.",
+  },
 };
 
 export default function IhbarSuresiPage() {
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Ana Sayfa", url: "/" },
+    { name: "İhbar Süresi Hesaplama", url: "/ihbar-suresi-hesaplama" },
+  ]);
+  const appSchema = buildWebApplicationSchema({
+    name: "İhbar Süresi ve Bitiş Tarihi Hesaplama Aracı",
+    path: "/ihbar-suresi-hesaplama",
+    description:
+      "4857 sayılı İş Kanunu md. 17 uyarınca hizmet sürenize göre yasal ihbar sürenizi ve sözleşmenizin olası son iş gününü hesaplayın.",
+  });
+
   return (
     <div className="flex flex-col gap-10 w-full">
+      <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={appSchema} />
+
       {/* 1. Başlık ve Açıklama */}
       <section className="text-center max-w-2xl mx-auto flex flex-col gap-3">
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">

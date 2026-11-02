@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/config/site";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PrivacyAnalytics from "@/components/PrivacyAnalytics";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -26,6 +27,12 @@ export const metadata: Metadata = {
     siteName: siteConfig.siteName,
     locale: "tr_TR",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Kıdem ve İhbar Tazminatı Hesaplama | ${siteConfig.siteName}`,
+    description:
+      "1475 ve 4857 sayılı kanunlar kapsamında güncel tavan ve oranlarla çalışan açık kaynaklı kıdem ve ihbar tazminatı hesaplayıcı.",
   },
   icons: {
     icon: "/icon.svg",
@@ -63,6 +70,9 @@ export default function RootLayout({
 
         {/* Alt Bilgi (Footer) */}
         <Footer />
+
+        {/* Çerezsiz ve Gizlilik Odaklı Analitik (Devre dışı ise render edilmez) */}
+        <PrivacyAnalytics />
       </body>
     </html>
   );

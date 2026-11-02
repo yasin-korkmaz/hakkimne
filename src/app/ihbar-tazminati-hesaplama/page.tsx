@@ -4,6 +4,11 @@ import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import TrustBadge from "@/components/TrustBadge";
 import Calculator from "@/components/Calculator";
+import JsonLd from "@/components/JsonLd";
+import {
+  buildBreadcrumbSchema,
+  buildWebApplicationSchema,
+} from "@/lib/seo/jsonLd";
 
 export const metadata: Metadata = {
   title: "İhbar Tazminatı Hesaplama",
@@ -18,6 +23,12 @@ export const metadata: Metadata = {
       "4857 sayılı Kanun md. 17 uyarınca çalışma süresi kademelerine göre ihbar süresi ve ihbar tazminatı hesaplayıcı.",
     url: `${siteConfig.siteUrl}/ihbar-tazminati-hesaplama`,
   },
+  twitter: {
+    card: "summary_large_image",
+    title: `İhbar Tazminatı Hesaplama | ${siteConfig.siteName}`,
+    description:
+      "4857 sayılı Kanun md. 17 uyarınca çalışma süresi kademelerine göre ihbar süresi ve ihbar tazminatı hesaplayıcı.",
+  },
 };
 
 /**
@@ -26,8 +37,22 @@ export const metadata: Metadata = {
  */
 
 export default function IhbarTazminatiPage() {
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Ana Sayfa", url: "/" },
+    { name: "İhbar Tazminatı Hesaplama", url: "/ihbar-tazminati-hesaplama" },
+  ]);
+  const appSchema = buildWebApplicationSchema({
+    name: "İhbar Tazminatı Hesaplama Aracı",
+    path: "/ihbar-tazminati-hesaplama",
+    description:
+      "4857 sayılı Kanun md. 17 uyarınca çalışma süresi kademelerine göre ihbar süresi ve ihbar tazminatı hesaplayıcı.",
+  });
+
   return (
     <div className="flex flex-col gap-10 w-full">
+      <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={appSchema} />
+
       <section className="text-center max-w-2xl mx-auto flex flex-col gap-3">
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
           İhbar Tazminatı Hesaplama

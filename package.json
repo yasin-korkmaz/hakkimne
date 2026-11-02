@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "build:release": "npm run check:rates && npm run build",
     "check:rates": "node scripts/check-rates.mjs",
     "lint": "eslint src/",

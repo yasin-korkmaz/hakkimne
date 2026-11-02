@@ -72,10 +72,13 @@ describe("Layout ve Navigasyon Bileşenleri", () => {
 });
 
 describe("Ana Sayfa ve Hesaplama Sayfaları", () => {
-  it("Ana sayfada tek H1 'Kıdem ve İhbar Tazminatı Hesaplama' yer almalı", () => {
+  it("Ana sayfada H1 'İş hayatında hakkını bil.' ve CTA yer almalı", () => {
     render(<HomePage />);
     expect(
-      screen.getByRole("heading", { level: 1, name: "Kıdem ve İhbar Tazminatı Hesaplama" })
+      screen.getByRole("heading", { level: 1, name: "İş hayatında hakkını bil." })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /Haklarımı kontrol et/i })
     ).toBeInTheDocument();
   });
 
