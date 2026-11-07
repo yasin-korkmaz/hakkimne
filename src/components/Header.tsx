@@ -9,7 +9,7 @@ import { siteConfig } from "@/config/site";
  */
 export default function Header() {
   return (
-    <header className="w-full bg-white border-b border-slate-100">
+    <header className="w-full bg-transparent">
       <div className="max-w-6xl mx-auto px-4 pt-6 pb-4 sm:pt-7 sm:pb-5 flex items-center">
         <Link
           href="/"
