@@ -14,6 +14,7 @@ import CalculatorForm from "./CalculatorForm";
 import ResultSummary from "./ResultSummary";
 import ReceiptTable from "./ReceiptTable";
 import NoticeList from "./NoticeList";
+import SonucPaylasim from "./SonucPaylasim";
 
 interface CalculatorProps {
   ratesData?: RatesSourceResult;
@@ -29,6 +30,21 @@ export default function Calculator({ ratesData }: CalculatorProps) {
   const handleReset = () => {
     setResult(null);
     setShowDetails(false);
+  };
+
+  const handleCalculate = (res: CompensationServiceResult) => {
+    setResult(res);
+    if (res.status === "ok") {
+      try {
+        fetch("https://sayac.hakkimnedir.workers.dev/api/hesaplama", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ tur: "tazminat" }),
+        }).catch(() => {});
+      } catch {
+        // Telemetri hatası sessizce yutulur
+      }
+    }
   };
 
   const totalNet =
@@ -53,7 +69,7 @@ export default function Calculator({ ratesData }: CalculatorProps) {
       <div className="bg-white p-4 sm:p-8 rounded-2xl border border-gray-200 shadow-sm">
         <CalculatorForm
           rates={rates}
-          onCalculate={setResult}
+          onCalculate={handleCalculate}
           onReset={handleReset}
         />
       </div>
@@ -88,6 +104,20 @@ export default function Calculator({ ratesData }: CalculatorProps) {
                   severanceEligible={result.severance.eligible}
                   noticeEligible={result.notice.eligible}
                   totalNet={totalNet}
+                />
+
+                {/* PDF İndir & Paylaşım Paneli */}
+                <SonucPaylasim
+                  result={{
+                    netKidem: result.severance.eligible ? result.severance.netSeverance : 0,
+                    grossKidem: result.severance.eligible ? result.severance.grossSeverance : 0,
+                    netIhbar: result.notice.eligible ? result.notice.estimatedNetNotice : 0,
+                    grossIhbar: result.notice.eligible ? result.notice.grossNotice : 0,
+                    toplamNet: totalNet ?? 0,
+                    serviceDuration: `${result.severance.duration.years} yıl ${result.severance.duration.months} ay ${result.severance.duration.days} gün`,
+                    monthlySalary: result.input.grossMonthly,
+                    extraBenefits: result.input.extraMonthly,
+                  }}
                 />
 
                 {/* Katman 2 Toggle Butonu */}

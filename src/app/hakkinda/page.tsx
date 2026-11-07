@@ -5,8 +5,8 @@ import { siteConfig } from "@/config/site";
 export const metadata: Metadata = {
   title: "Hakkında",
   description: "HakkımNedir? Bağımsız Kıdem ve İhbar Tazminatı Hesaplama Platformu",
-  robots: { index: false, follow: false },
-  alternates: { canonical: "/hakkinda" },
+  robots: { index: true, follow: true },
+  alternates: { canonical: "https://hakkimnedir.com.tr/hakkinda" },
 };
 
 /**
