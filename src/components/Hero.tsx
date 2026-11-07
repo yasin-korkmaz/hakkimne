@@ -68,17 +68,18 @@ export default function Hero() {
 
       {/* CTA Butonları */}
       <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
-        <a
-          href="#hesaplayici"
+        <Link
+          href="/kidem-tazminati-hesaplama"
           aria-label="Hakkımı hesapla — Haklarımı kontrol et"
           className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#1769E0] hover:bg-[#123C68] text-white font-semibold text-sm sm:text-base rounded-xl transition-all shadow-xs min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1769E0] focus-visible:ring-offset-2"
         >
           <Calculator className="w-4 h-4" aria-hidden="true" />
           <span>Hakkımı hesapla</span>
-        </a>
+        </Link>
 
         <Link
           href="/rehber"
+          aria-label="Detaylı hesaplama yöntemini incele"
           className="inline-flex items-center gap-2 px-6 py-3.5 bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-semibold text-sm sm:text-base rounded-xl transition-all shadow-xs min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1769E0] focus-visible:ring-offset-2"
         >
           <BookOpen className="w-4 h-4 text-slate-600" aria-hidden="true" />

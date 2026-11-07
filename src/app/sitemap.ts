@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "",
     "/kidem-tazminati-hesaplama",
+    "/kidem-tazminati",
     "/ihbar-tazminati-hesaplama",
     "/ihbar-suresi-hesaplama",
     "/yillik-izin-ucreti-hesaplama",

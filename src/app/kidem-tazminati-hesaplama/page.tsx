@@ -32,51 +32,53 @@ export const metadata: Metadata = {
 };
 
 /**
- * Kıdem Tazminatı Hesaplama Sayfası
- * Açıklama ve formüller kaldırılmış olup doğrudan sade form, sonuç ve rehber yönlendirmesi içerir.
+ * Kıdem Tazminatı Hesaplama Sayfası (Tool Page)
+ * Kullanıcı doğrudan form ve hesaplama motoru ile karşılaşır.
  */
-
 export default function KidemTazminatiPage() {
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Ana Sayfa", url: "/" },
     { name: "Kıdem Tazminatı Hesaplama", url: "/kidem-tazminati-hesaplama" },
   ]);
   const appSchema = buildWebApplicationSchema({
-    name: "Kıdem Tazminatı Hesaplama Aracı",
+    name: "Kıdem ve İhbar Tazminatı Hesaplama Motoru",
     path: "/kidem-tazminati-hesaplama",
     description:
       "1475 sayılı Kanun md. 14 uyarınca hizmet süresi ve güncel tavan tutarına göre kıdem tazminatı hesaplama aracı.",
   });
 
   return (
-    <div className="flex flex-col gap-10 w-full">
+    <div className="flex flex-col gap-6 w-full max-w-2xl mx-auto">
       <JsonLd data={breadcrumbSchema} />
       <JsonLd data={appSchema} />
 
-      <section className="text-center max-w-2xl mx-auto flex flex-col gap-3">
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+      {/* Küçük ve Net Sayfa H1 Başlığı */}
+      <section className="text-center flex flex-col gap-1.5 pt-1">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0B1F33] tracking-tight">
           Kıdem Tazminatı Hesaplama
         </h1>
-        <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-          1475 Sayılı İş Kanunu Madde 14 uyarınca en az 1 yıllık çalışma süresi ve yasal fesih koşullarına göre kıdem tazminatınızı hesaplayın.
+        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+          1475 Sayılı İş Kanunu Madde 14 ve 4857 Sayılı Kanun Madde 17 uyarınca kıdem ve ihbar tazminatı hesaplama motoru.
         </p>
       </section>
 
+      {/* Güven Rozeti */}
       <section className="w-full">
         <TrustBadge />
       </section>
 
+      {/* Doğrudan Hesaplama Formu */}
       <section className="w-full">
         <Calculator />
       </section>
 
       {/* Detaylı Hesaplama Yöntemi Bağlantısı */}
-      <div className="text-center -mt-4">
+      <div className="text-center pt-1 pb-4">
         <Link
           href="/rehber"
-          className="inline-flex items-center gap-1.5 text-sm sm:text-base font-semibold text-blue-600 hover:text-blue-700 hover:underline min-h-[44px] py-2 px-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+          className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-blue-600 hover:text-blue-700 hover:underline min-h-[44px] py-1 px-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
         >
-          Detaylı hesaplama yöntemini incele →
+          Detaylı hesaplama yöntemini ve kanun maddelerini incele →
         </Link>
       </div>
     </div>
