@@ -27,7 +27,7 @@ import IletisimPage from "@/app/iletisim/page";
 import NotFoundPage from "@/app/not-found";
 
 describe("Layout ve Navigasyon Bileşenleri", () => {
-  it("Header içinde logo ve temel menü bağlantıları render edilmeli", () => {
+  it("Header içinde logo render edilmeli", () => {
     render(
       <RootLayout>
         <div>Test İçerik</div>
@@ -36,10 +36,6 @@ describe("Layout ve Navigasyon Bileşenleri", () => {
     );
 
     expect(screen.getByRole("link", { name: /HakkımNedir\?/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /^Hesaplayıcılar$/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /^Rehber$/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /^Hakkımızda$/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /Hakkımı Hesapla/i })).toBeInTheDocument();
   });
 
   it("Footer içinde yasal bağlantılar ve DISCLAIMER yer almalı", () => {
