@@ -42,8 +42,8 @@ describe("A11y 1 & 2 & 5: RootLayout Klavye ve Dokunma Hedefleri", () => {
       { container: document }
     );
 
-    const kidemLink = screen.getByRole("link", { name: "Kıdem Tazminatı" });
-    expect(kidemLink.className).toContain("min-h-[44px]");
+    const headerLink = screen.getByRole("link", { name: "Hesaplayıcılar" });
+    expect(headerLink.className).toContain("min-h-[44px]");
 
     const gizlilikLink = screen.getByRole("link", { name: "Gizlilik Politikası" });
     expect(gizlilikLink.className).toContain("min-h-[44px]");

@@ -36,13 +36,10 @@ describe("Layout ve Navigasyon Bileşenleri", () => {
     );
 
     expect(screen.getByRole("link", { name: /HakkımNedir\?/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /^Kıdem Tazminatı$/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /^İhbar Tazminatı$/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /^Yıllık İzin$/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /^Fazla Mesai$/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /^İhbar Süresi$/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /^Hesaplayıcılar$/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /^Rehber$/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /^Hakkımızda$/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Hakkımı Hesapla/i })).toBeInTheDocument();
   });
 
   it("Footer içinde yasal bağlantılar ve DISCLAIMER yer almalı", () => {

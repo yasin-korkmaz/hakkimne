@@ -1,5 +1,5 @@
 /**
- * Header.test.tsx — Responsive Header, Dropdown ve Hamburger Menü Testleri
+ * Header.test.tsx — Yalın Header ve Responsive Mobil Menü Testleri
  * Dayanak: WCAG 2.1 AA & Masaüstü / Mobil Responsive Gereksinimleri
  */
 
@@ -8,40 +8,15 @@ import { describe, it, expect } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import Header from "@/components/Header";
 
-describe("Header — Responsive Navigasyon ve Hamburger Menü", () => {
-  it("Logo ve masaüstü navigasyon bağlantıları render edilmeli", () => {
+describe("Header — Yalın Masaüstü ve Responsive Mobil Menü", () => {
+  it("Logo, masaüstü navigasyon bağlantıları ve CTA butonu render edilmeli", () => {
     render(<Header />);
 
     expect(screen.getByRole("link", { name: /HakkımNedir\?/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /^Kıdem Tazminatı$/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /^İhbar Tazminatı$/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /^Yıllık İzin$/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /^Fazla Mesai$/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /^İhbar Süresi$/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /^Hesaplayıcılar$/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /^Rehber$/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /^Hakkımızda$/i })).toBeInTheDocument();
-  });
-
-  it("Masaüstünde 'Diğer Araçlar' dropdown menüsü açılıp kapanabilmeli", () => {
-    render(<Header />);
-
-    const dropdownButton = screen.getByRole("button", { name: "Diğer Araçlar Menüsü" });
-    expect(dropdownButton).toBeInTheDocument();
-    expect(dropdownButton).toHaveAttribute("aria-expanded", "false");
-
-    // Butona tıkla -> Aç
-    fireEvent.click(dropdownButton);
-    expect(dropdownButton).toHaveAttribute("aria-expanded", "true");
-    expect(screen.getByRole("menu", { name: "Diğer Araçlar" })).toBeInTheDocument();
-    expect(screen.getByRole("menuitem", { name: /Hak Takip Merkezi/i })).toBeInTheDocument();
-    expect(screen.getByRole("menuitem", { name: /Belge Kontrolü/i })).toBeInTheDocument();
-    expect(screen.getByRole("menuitem", { name: /Kariyerim/i })).toBeInTheDocument();
-    expect(screen.getByRole("menuitem", { name: /Kamu & KPSS/i })).toBeInTheDocument();
-
-    // Tekrar tıkla -> Kapat
-    fireEvent.click(dropdownButton);
-    expect(dropdownButton).toHaveAttribute("aria-expanded", "false");
-    expect(screen.queryByRole("menu", { name: "Diğer Araçlar" })).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Hakkımı Hesapla/i })).toBeInTheDocument();
   });
 
   it("Hamburger butonu başlangıçta kapalı olmalı ve tıklandığında mobil menü açılıp kapanmalı", () => {
@@ -62,11 +37,13 @@ describe("Header — Responsive Navigasyon ve Hamburger Menü", () => {
 
     const mobileNav = screen.getByRole("navigation", { name: "Mobil Menü" });
     expect(mobileNav).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /^Kıdem Tazminatı$/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /^İhbar Tazminatı$/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /^Hak Takip Merkezi$/i })).toBeInTheDocument();
 
     // Menüdeki bir linke tıklandığında menü kapanmalı
-    const mobileLinks = screen.getAllByRole("link", { name: /^Kıdem Tazminatı$/i });
-    expect(mobileLinks.length).toBe(2); // Biri masaüstü, biri mobil menüde
-    fireEvent.click(mobileLinks[1]!);
+    const kidemLink = screen.getByRole("link", { name: /^Kıdem Tazminatı$/i });
+    fireEvent.click(kidemLink);
 
     expect(screen.queryByRole("navigation", { name: "Mobil Menü" })).not.toBeInTheDocument();
     expect(menuButton).toHaveAttribute("aria-expanded", "false");
