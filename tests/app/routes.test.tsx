@@ -82,10 +82,10 @@ describe("Ana Sayfa ve Hesaplama Sayfaları", () => {
     ).toHaveAttribute("href", "/rehber");
   });
 
-  it("Rehber sayfasında H1 'Kıdem ve İhbar Tazminatı Hesaplama Mantığı' yer almalı", () => {
+  it("Rehber sayfasında H1 'İşçi Hakları Rehberi' yer almalı", () => {
     render(<RehberPage />);
     expect(
-      screen.getByRole("heading", { level: 1, name: "Kıdem ve İhbar Tazminatı Hesaplama Mantığı" })
+      screen.getByRole("heading", { level: 1, name: "İşçi Hakları Rehberi" })
     ).toBeInTheDocument();
   });
 
