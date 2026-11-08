@@ -80,6 +80,7 @@ describe("SEO — Sitemap ve Robots Fonksiyonları", () => {
     expect(urls).toContain(`${siteConfig.siteUrl}/rehber/fazla-mesai`);
     expect(urls).toContain(`${siteConfig.siteUrl}/kvkk`);
     expect(urls).toContain(`${siteConfig.siteUrl}/gizlilik`);
+    expect(urls).toContain(`${siteConfig.siteUrl}/rehber/istifa-ettim-kidem-tazminati`);
   });
 
   it("robots() allowIndexing true iken allow '/' ve yasal sayfalar için disallow dönmeli", () => {

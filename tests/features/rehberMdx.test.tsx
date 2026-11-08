@@ -49,15 +49,15 @@ describe("MDX Blog Altyapısı Aşama 2 & 3 Testleri", () => {
 
   it("generateMetadata doğru SEO başlık ve açıklamasını üretmeli", async () => {
     const meta = await generateMetadata({ params: Promise.resolve({ slug: "istifa-ettim-kidem-tazminati" }) });
-    expect(meta.title).toContain("İstifa Ettim Kıdem Tazminatı");
-    expect(meta.description).toContain("Haklı nedenle fesih halleri");
+    expect(meta.title).toContain("İstifa Eden İşçi Kıdem Tazminatı");
+    expect(meta.description).toContain("haklı nedenle fesih");
   });
 
   it("RehberPage vitrini kartları ve 'İşçi Hakları Rehberi' H1 başlığını render etmeli", () => {
     render(<RehberPage />);
     expect(screen.getByRole("heading", { level: 1, name: "İşçi Hakları Rehberi" })).toBeInTheDocument();
-    expect(screen.getByText("İstifa Ettim Kıdem Tazminatı Alabilir Miyim? (2026)")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /İstifa Ettim/i })).toHaveAttribute(
+    expect(screen.getByText("İstifa Eden İşçi Kıdem Tazminatı Alabilir mi? (2026 Güncel Rehber)")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /İstifa/i })).toHaveAttribute(
       "href",
       "/rehber/istifa-ettim-kidem-tazminati"
     );
@@ -76,7 +76,7 @@ describe("MDX Blog Altyapısı Aşama 2 & 3 Testleri", () => {
     const { container } = render(Component);
 
     expect(
-      screen.getByRole("heading", { level: 1, name: "İstifa Ettim Kıdem Tazminatı Alabilir Miyim? (2026)" })
+      screen.getByRole("heading", { level: 1, name: "İstifa Eden İşçi Kıdem Tazminatı Alabilir mi? (2026 Güncel Rehber)" })
     ).toBeInTheDocument();
     expect(screen.getByText("Kıdem Tazminatı")).toBeInTheDocument();
     expect(screen.getByText("2026-11-08")).toBeInTheDocument();

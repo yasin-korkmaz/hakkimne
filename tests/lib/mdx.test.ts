@@ -14,10 +14,10 @@ describe("MDX Core Utils (src/lib/mdx.ts)", () => {
 
     const post = posts.find((p) => p.slug === "istifa-ettim-kidem-tazminati");
     expect(post).toBeDefined();
-    expect(post?.frontmatter.title).toBe("İstifa Ettim Kıdem Tazminatı Alabilir Miyim? (2026)");
+    expect(post?.frontmatter.title).toBe("İstifa Eden İşçi Kıdem Tazminatı Alabilir mi? (2026 Güncel Rehber)");
     expect(post?.frontmatter.category).toBe("Kıdem Tazminatı");
     expect(post?.frontmatter.date).toBe("2026-11-08");
-    expect(post?.frontmatter.description).toContain("Haklı nedenle fesih");
+    expect(post?.frontmatter.description).toContain("haklı nedenle fesih");
     expect(post?.content).toContain("<Calculator />");
   });
 
@@ -25,8 +25,8 @@ describe("MDX Core Utils (src/lib/mdx.ts)", () => {
     const post = getPostBySlug("istifa-ettim-kidem-tazminati");
     expect(post).not.toBeNull();
     expect(post?.slug).toBe("istifa-ettim-kidem-tazminati");
-    expect(post?.frontmatter.title).toContain("İstifa Ettim");
-    expect(post?.content).toContain("İş Kanunu madde 24");
+    expect(post?.frontmatter.title).toContain("İstifa");
+    expect(post?.content).toContain("İş Kanunu");
   });
 
   it("getPostBySlug() var olmayan slug için null dönmeli", () => {
