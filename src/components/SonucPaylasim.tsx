@@ -31,15 +31,15 @@ export default function SonucPaylasim({ result }: SonucPaylasimProps) {
     }
   };
 
-  // WhatsApp paylaşım mesajı formatı (evrensel emojiler ve encodeURIComponent)
+  // WhatsApp paylaşım mesajı formatı (Native WhatsApp Markdown: *bold*, - liste)
   const shareText = [
-    "⚖️ HakkımNedir? Tazminat Hesaplama Sonucum:",
-    `💰 Tahmini Net Ele Geçecek: ${formatTRY(result.toplamNet)}`,
-    result.netKidem ? `🔹 Net Kıdem Tazminatı: ${formatTRY(result.netKidem)}` : null,
-    result.netIhbar ? `🔹 Net İhbar Tazminatı: ${formatTRY(result.netIhbar)}` : null,
-    result.serviceDuration ? `⏱️ Hizmet Süresi: ${result.serviceDuration}` : null,
+    "*HakkımNedir? Tazminat Hesaplama Sonucum:*",
+    `- Tahmini Net Ele Geçecek: ${formatTRY(result.toplamNet)}`,
+    result.netKidem ? `- Net Kıdem Tazminatı: ${formatTRY(result.netKidem)}` : null,
+    result.netIhbar ? `- Net İhbar Tazminatı: ${formatTRY(result.netIhbar)}` : null,
+    result.serviceDuration ? `- Hizmet Süresi: ${result.serviceDuration}` : null,
     "",
-    "🔗 Sen de yasal haklarını ücretsiz öğren: https://hakkimnedir.com.tr",
+    "Sen de yasal haklarını ücretsiz öğren: https://hakkimnedir.com.tr",
   ]
     .filter(Boolean)
     .join("\n");
