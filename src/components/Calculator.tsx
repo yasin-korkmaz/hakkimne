@@ -11,10 +11,8 @@ import type { CompensationServiceResult } from "@/lib/calculators/compensation";
 import { buildReceipt } from "@/lib/receipt/buildReceipt";
 import { buildNotices } from "@/lib/receipt/buildNotices";
 import CalculatorForm from "./CalculatorForm";
-import ResultSummary from "./ResultSummary";
-import ReceiptTable from "./ReceiptTable";
+import ResultScreen from "./ResultScreen";
 import NoticeList from "./NoticeList";
-import SonucPaylasim from "./SonucPaylasim";
 
 interface CalculatorProps {
   ratesData?: RatesSourceResult;
@@ -95,64 +93,15 @@ export default function Calculator({ ratesData }: CalculatorProps) {
               </div>
             )}
 
-            {/* Başarılı Hesaplama Durumu: İki Katmanlı Sonuç */}
+            {/* Başarılı Hesaplama Durumu: İki Katmanlı Sonuç ve Eylem Merkezi */}
             {result.status === "ok" && (
-              <div className="w-full flex flex-col gap-6">
-                {/* Katman 1: Hesaplama Özeti */}
-                <ResultSummary
-                  rows={buildReceipt(result, rates)}
-                  severanceEligible={result.severance.eligible}
-                  noticeEligible={result.notice.eligible}
-                  totalNet={totalNet}
-                />
-
-                {/* PDF İndir & Paylaşım Paneli */}
-                <SonucPaylasim
-                  result={{
-                    netKidem: result.severance.eligible ? result.severance.netSeverance : 0,
-                    grossKidem: result.severance.eligible ? result.severance.grossSeverance : 0,
-                    netIhbar: result.notice.eligible ? result.notice.estimatedNetNotice : 0,
-                    grossIhbar: result.notice.eligible ? result.notice.grossNotice : 0,
-                    toplamNet: totalNet ?? 0,
-                    serviceDuration: `${result.severance.duration.years} yıl ${result.severance.duration.months} ay ${result.severance.duration.days} gün`,
-                    monthlySalary: result.input.grossMonthly,
-                    extraBenefits: result.input.extraMonthly,
-                  }}
-                />
-
-                {/* Katman 2 Toggle Butonu */}
-                <div className="w-full flex justify-center pt-1">
-                  <button
-                    type="button"
-                    onClick={() => setShowDetails((prev) => !prev)}
-                    aria-expanded={showDetails}
-                    aria-controls="detailed-receipt"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-blue-200 bg-white hover:bg-blue-50 text-blue-700 font-semibold text-sm transition-all shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 min-h-[44px]"
-                  >
-                    <span>{showDetails ? "Ayrıntılı hesaplamayı gizle" : "Ayrıntılı hesaplamayı göster"}</span>
-                    <svg
-                      className={`w-4 h-4 transition-transform duration-200 ${showDetails ? "rotate-180" : ""}`}
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      aria-hidden="true"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                </div>
-
-                {/* Katman 2: Adım Adım Hesaplama Fişi */}
-                {showDetails && (
-                  <div id="detailed-receipt" className="w-full">
-                    <ReceiptTable rows={buildReceipt(result, rates)} />
-                  </div>
-                )}
-
-                {/* Durum / Tavan Uyarıları */}
-                <NoticeList notices={buildNotices(result)} />
-              </div>
+              <ResultScreen
+                result={result}
+                rates={rates}
+                showDetails={showDetails}
+                onToggleDetails={() => setShowDetails((prev) => !prev)}
+                totalNet={totalNet}
+              />
             )}
           </>
         )}

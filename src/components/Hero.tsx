@@ -63,7 +63,7 @@ export default function Hero() {
 
       {/* Alt Başlık */}
       <p className="text-base sm:text-lg text-slate-600 max-w-2xl leading-relaxed">
-        Kıdem tazminatından fazla mesaiye tüm haklarını saniyeler içinde öğren.
+        Kıdem ve ihbar tazminatını 30 saniyede güvenle hesaplayın. Verileriniz tarayıcınızdan çıkmaz.
       </p>
 
       {/* CTA Butonları */}

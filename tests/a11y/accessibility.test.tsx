@@ -95,7 +95,7 @@ describe("A11y 8: CalculatorForm Hata Bildirimleri Canlı Duyurusu (role='alert'
     const user = userEvent.setup();
     render(<Calculator ratesData={{ rates: fixture, isTestData: false }} />);
 
-    await user.click(screen.getByRole("button", { name: /Hesapla/i }));
+    await user.click(screen.getByRole("button", { name: /İleri/i }));
 
     const alerts = screen.getAllByRole("alert");
     expect(alerts.length).toBeGreaterThan(0);

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import Hero from "@/components/Hero";
 import AracGrid from "@/components/AracGrid";
+import MostReadArticles from "@/components/MostReadArticles";
 import JsonLd from "@/components/JsonLd";
 import {
   buildOrganizationAndWebsiteSchema,
@@ -49,6 +50,9 @@ export default function Home() {
 
       {/* 2. Hesaplama ve Karar Destek Araçları Menüsü */}
       <AracGrid />
+
+      {/* 3. En Çok Okunan Rehber Yazıları */}
+      <MostReadArticles />
     </div>
   );
 }

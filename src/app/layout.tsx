@@ -3,6 +3,7 @@ import { siteConfig } from "@/config/site";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PrivacyAnalytics from "@/components/PrivacyAnalytics";
+import CookieBanner from "@/components/CookieBanner";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -88,6 +89,9 @@ export default function RootLayout({
 
         {/* Çerezsiz ve Gizlilik Odaklı Analitik (Devre dışı ise render edilmez) */}
         <PrivacyAnalytics />
+
+        {/* KVKK Uyumlu Çerez Onay Bildirimi */}
+        <CookieBanner />
       </body>
     </html>
   );

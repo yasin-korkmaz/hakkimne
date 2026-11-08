@@ -1,8 +1,8 @@
 "use client";
 
 /**
- * CalculatorForm.tsx — Kıdem ve İhbar Tazminatı Hesaplama Formu
- * Dayanak: 1475 md. 14 & 4857 md. 17 (Aşama 2 Form UX Sadeleştirmesi)
+ * CalculatorForm.tsx — 3 Adımlı Kıdem ve İhbar Tazminatı Sihirbaz Formu
+ * Dayanak: 1475 md. 14 & 4857 md. 17 (İlerleme çubuklu modern Wizard UX)
  */
 
 import React, { useState, useRef } from "react";
@@ -11,9 +11,15 @@ import {
   calculateCompensation,
   type CompensationServiceResult,
 } from "@/lib/calculators/compensation";
+import { nettenBrute } from "@/lib/netBrutHesapla";
+import { parseTRNumber } from "@/lib/utils/format";
+import { trackEvent } from "@/lib/analytics";
 import { INITIAL_FORM_STATE } from "./calculatorFormConstants";
-import { MoneyInputField, DateInputField } from "./FormInputFields";
-import { ReasonSelectField, NoticeUsedField } from "./FormSelectFields";
+import ProgressBar from "./calculator/ProgressBar";
+import Step1BasicInfo from "./calculator/Step1BasicInfo";
+import Step2Salary from "./calculator/Step2Salary";
+import Step3Benefits from "./calculator/Step3Benefits";
+import WizardNav from "./calculator/WizardNav";
 
 interface CalculatorFormProps {
   rates: RatesConfig;
@@ -21,11 +27,17 @@ interface CalculatorFormProps {
   onReset?: () => void;
 }
 
-export default function CalculatorForm({ rates, onCalculate, onReset }: CalculatorFormProps) {
+export default function CalculatorForm({
+  rates,
+  onCalculate,
+  onReset,
+}: CalculatorFormProps) {
+  const [currentStep, setCurrentStep] = useState(1);
+  const [salaryType, setSalaryType] = useState<"brut" | "net">("brut");
   const [formData, setFormData] = useState(INITIAL_FORM_STATE);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const refs: Record<string, React.RefObject<HTMLInputElement | HTMLSelectElement | null>> = {
+  const refs = {
     reason: useRef<HTMLSelectElement>(null),
     noticeUsed: useRef<HTMLSelectElement>(null),
     startIso: useRef<HTMLInputElement>(null),
@@ -37,7 +49,7 @@ export default function CalculatorForm({ rates, onCalculate, onReset }: Calculat
   };
 
   const showNoticeFields = formData.reason === "employer_unfair";
-  const taxRates = rates.income_tax_rates_for_estimate?.rates ?? [0.15, 0.20, 0.27, 0.35, 0.40];
+  const taxRates = rates.income_tax_rates_for_estimate?.rates ?? [0.15, 0.2, 0.27, 0.35, 0.4];
 
   const handleChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -50,16 +62,79 @@ export default function CalculatorForm({ rates, onCalculate, onReset }: Calculat
     }
   };
 
+  const validateStep1 = (): boolean => {
+    const errs: Record<string, string> = {};
+    if (!formData.reason) errs.reason = "Fesih nedeni seçilmelidir.";
+    if (!formData.startIso) errs.startIso = "İşe giriş tarihi girilmelidir.";
+    if (!formData.exitIso) errs.exitIso = "İşten çıkış tarihi girilmelidir.";
+    else if (formData.startIso && formData.exitIso < formData.startIso) {
+      errs.exitIso = "İşten çıkış tarihi, işe giriş tarihinden önce olamaz.";
+    }
+
+    if (Object.keys(errs).length > 0) {
+      setErrors(errs);
+      if (errs.reason) refs.reason.current?.focus();
+      else if (errs.startIso) refs.startIso.current?.focus();
+      else if (errs.exitIso) refs.exitIso.current?.focus();
+      return false;
+    }
+    return true;
+  };
+
+  const validateStep2 = (): boolean => {
+    const errs: Record<string, string> = {};
+    const val = parseTRNumber(formData.grossMonthly);
+    if (!formData.grossMonthly.trim()) {
+      errs.grossMonthly =
+        salaryType === "brut" ? "Aylık brüt maaş girilmelidir." : "Aylık net maaş girilmelidir.";
+    } else if (val === null || isNaN(val) || val <= 0) {
+      errs.grossMonthly = "Maaş 0'dan büyük geçerli bir tutar olmalıdır.";
+    }
+
+    if (Object.keys(errs).length > 0) {
+      setErrors(errs);
+      refs.grossMonthly.current?.focus();
+      return false;
+    }
+    return true;
+  };
+
+  const handleNext = () => {
+    if (currentStep === 1) {
+      if (validateStep1()) {
+        trackEvent("calc_start");
+        setCurrentStep(2);
+      }
+    } else if (currentStep === 2) {
+      if (validateStep2()) setCurrentStep(3);
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentStep > 1) setCurrentStep((prev) => prev - 1);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const result = calculateCompensation(formData, rates);
+    if (currentStep < 3) {
+      handleNext();
+      return;
+    }
+
+    trackEvent("calc_submit");
+    let effectiveGross = formData.grossMonthly;
+    if (salaryType === "net") {
+      const netVal = parseTRNumber(formData.grossMonthly);
+      if (netVal !== null && !isNaN(netVal) && netVal > 0) {
+        effectiveGross = String(nettenBrute(netVal).brutUcret);
+      }
+    }
+
+    const payload = { ...formData, grossMonthly: effectiveGross };
+    const result = calculateCompensation(payload, rates);
 
     if (result.status === "invalid_input") {
       setErrors(result.fieldErrors);
-      const firstField = Object.keys(refs).find((key) => result.fieldErrors[key]);
-      if (firstField && refs[firstField]?.current) {
-        refs[firstField].current?.focus();
-      }
     } else {
       setErrors({});
     }
@@ -68,120 +143,54 @@ export default function CalculatorForm({ rates, onCalculate, onReset }: Calculat
 
   const handleReset = () => {
     setFormData(INITIAL_FORM_STATE);
+    setSalaryType("brut");
+    setCurrentStep(1);
     setErrors({});
     onReset?.();
   };
 
   return (
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5 w-full max-w-xl mx-auto">
-      {/* 1. Fesih Nedeni */}
-      <ReasonSelectField
-        value={formData.reason}
-        error={errors.reason}
-        selectRef={refs.reason as React.RefObject<HTMLSelectElement>}
-        onChange={(val) => handleChange("reason", val)}
-      />
-
-      {/* 2. İhbar Öneli */}
-      {showNoticeFields && (
-        <NoticeUsedField
-          value={formData.noticeUsed}
-          error={errors.noticeUsed}
-          selectRef={refs.noticeUsed as React.RefObject<HTMLSelectElement>}
-          onChange={(val) => handleChange("noticeUsed", val)}
+      <ProgressBar currentStep={currentStep} onStepClick={(s) => setCurrentStep(s)} />
+      {currentStep === 1 && (
+        <Step1BasicInfo
+          formData={formData}
+          errors={errors}
+          showNoticeFields={showNoticeFields}
+          refs={refs}
+          onChange={handleChange}
         />
       )}
-
-      {/* 3. Tarihler */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <DateInputField
-          id="startIso"
-          label="İşe Giriş Tarihi *"
-          value={formData.startIso}
-          error={errors.startIso}
-          inputRef={refs.startIso as React.RefObject<HTMLInputElement>}
-          onChange={(val) => handleChange("startIso", val)}
-        />
-        <DateInputField
-          id="exitIso"
-          label="İşten Çıkış Tarihi *"
-          value={formData.exitIso}
-          error={errors.exitIso}
-          inputRef={refs.exitIso as React.RefObject<HTMLInputElement>}
-          onChange={(val) => handleChange("exitIso", val)}
-        />
-      </div>
-
-      {/* 4. Maaş ve Gelirler */}
-      <div className="flex flex-col gap-4">
-        <MoneyInputField
-          id="grossMonthly"
-          label="Aylık Brüt Maaş (TL) *"
-          description="Aylık brüt ücretinizi girin. Kesintiler yapılmadan önceki tutarı yazın."
-          placeholder="Örn: 50.000,00"
-          value={formData.grossMonthly}
+      {currentStep === 2 && (
+        <Step2Salary
+          salaryType={salaryType}
+          onSalaryTypeChange={(t) => setSalaryType(t)}
+          salaryInput={formData.grossMonthly}
           error={errors.grossMonthly}
-          inputRef={refs.grossMonthly as React.RefObject<HTMLInputElement>}
+          inputRef={refs.grossMonthly}
           onChange={(val) => handleChange("grossMonthly", val)}
+          showNoticeFields={showNoticeFields}
+          incomeTaxRate={formData.incomeTaxRate}
+          taxRates={taxRates}
+          taxRateRef={refs.incomeTaxRate}
+          onTaxRateChange={(val) => handleChange("incomeTaxRate", val)}
         />
-
-        <MoneyInputField
-          id="extraMonthly"
-          label="Düzenli Aylık Ek Ödemeler (TL)"
-          description="Yol, yemek, yakacak gibi her ay düzenli aldığınız ek ödemeleri girin."
-          placeholder="Örn: 5.000,00"
-          value={formData.extraMonthly}
-          error={errors.extraMonthly}
-          inputRef={refs.extraMonthly as React.RefObject<HTMLInputElement>}
-          onChange={(val) => handleChange("extraMonthly", val)}
-        />
-
-        <MoneyInputField
-          id="annualBonus"
-          label="Yıllık İkramiye / Prim Toplamı (TL)"
-          description="Son 1 yılda aldığınız brüt ikramiye, prim ve bayram paraları toplamını girin."
-          placeholder="Örn: 60.000,00"
-          value={formData.annualBonus}
-          error={errors.annualBonus}
-          inputRef={refs.annualBonus as React.RefObject<HTMLInputElement>}
-          onChange={(val) => handleChange("annualBonus", val)}
-        />
-      </div>
-
-      {/* 5. Gelir Vergisi Oranı */}
-      {showNoticeFields && (
-        <div className="flex flex-col gap-1">
-          <label htmlFor="incomeTaxRate" className="text-sm font-semibold text-gray-900">Tahmini net ihbar için gelir vergisi oranı</label>
-          <select
-            id="incomeTaxRate"
-            ref={refs.incomeTaxRate as React.RefObject<HTMLSelectElement>}
-            value={formData.incomeTaxRate}
-            onChange={(e) => handleChange("incomeTaxRate", e.target.value)}
-            className="min-h-[44px] px-3 py-2 border rounded-md border-gray-300 text-sm focus:ring-2 focus:ring-blue-600 bg-white"
-          >
-            {taxRates.map((rate) => (
-              <option key={rate} value={String(rate)}>%{rate * 100}</option>
-            ))}
-          </select>
-        </div>
       )}
-
-      {/* 6. Butonlar */}
-      <div className="flex flex-col sm:flex-row gap-3 pt-2">
-        <button
-          type="submit"
-          className="min-h-[44px] flex-1 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md text-sm shadow-sm transition-colors focus:ring-2 focus:ring-blue-500 focus:outline-none"
-        >
-          Hesapla
-        </button>
-        <button
-          type="button"
-          onClick={handleReset}
-          className="min-h-[44px] px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-md text-sm transition-colors focus:ring-2 focus:ring-gray-400 focus:outline-none"
-        >
-          Temizle
-        </button>
-      </div>
+      {currentStep === 3 && (
+        <Step3Benefits
+          extraMonthly={formData.extraMonthly}
+          annualBonus={formData.annualBonus}
+          errors={errors}
+          refs={refs}
+          onChange={handleChange}
+        />
+      )}
+      <WizardNav
+        currentStep={currentStep}
+        onPrev={handlePrev}
+        onNext={handleNext}
+        onReset={handleReset}
+      />
     </form>
   );
 }

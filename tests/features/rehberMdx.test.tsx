@@ -57,10 +57,9 @@ describe("MDX Blog Altyapısı Aşama 2 & 3 Testleri", () => {
     render(<RehberPage />);
     expect(screen.getByRole("heading", { level: 1, name: "İşçi Hakları Rehberi" })).toBeInTheDocument();
     expect(screen.getByText("İstifa Eden İşçi Kıdem Tazminatı Alabilir mi? (2026 Güncel Rehber)")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /İstifa/i })).toHaveAttribute(
-      "href",
-      "/rehber/istifa-ettim-kidem-tazminati"
-    );
+    expect(
+      screen.getByRole("link", { name: /İstifa Eden İşçi Kıdem Tazminatı/i })
+    ).toHaveAttribute("href", "/rehber/istifa-ettim-kidem-tazminati");
   });
 
   it("MdxComponents nesnesi Calculator ve temel tipografi bileşenlerini içermeli", () => {

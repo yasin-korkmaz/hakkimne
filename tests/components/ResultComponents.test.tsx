@@ -19,7 +19,7 @@ describe("Calculator — Senaryo 1 (İki Katmanlı Sonuç ve Toggle)", () => {
     const user = userEvent.setup();
     render(<Calculator ratesData={{ rates: fixture, isTestData: false }} />);
 
-    // S1 formunu doldur
+    // S1 formunu sihirbaz adımlarıyla doldur
     await user.selectOptions(
       screen.getByLabelText(/İşten Ayrılış \/ Fesih Nedeni/i),
       "employer_unfair"
@@ -30,9 +30,14 @@ describe("Calculator — Senaryo 1 (İki Katmanlı Sonuç ve Toggle)", () => {
     );
     await user.type(screen.getByLabelText(/İşe Giriş Tarihi/i), "2022-08-15");
     await user.type(screen.getByLabelText(/İşten Çıkış Tarihi/i), "2026-08-14");
-    await user.type(screen.getByLabelText(/Aylık Brüt Maaş/i), "50000");
+    await user.click(screen.getByRole("button", { name: /İleri/i }));
 
-    await user.click(screen.getByRole("button", { name: /Hesapla/i }));
+    // 2. Adım: Maaş
+    await user.type(screen.getByLabelText(/Aylık Brüt Maaş/i), "50000");
+    await user.click(screen.getByRole("button", { name: /İleri/i }));
+
+    // 3. Adım: Hesapla
+    await user.click(screen.getByRole("button", { name: /Hakkımı Hesapla/i }));
 
     // Net kıdem tazminatı görünmeli
     expect(screen.getAllByText("198.482,00 TL").length).toBeGreaterThan(0);
@@ -56,18 +61,23 @@ describe("Calculator — Senaryo 2 (Tavan Uygulandı)", () => {
     const user = userEvent.setup();
     render(<Calculator ratesData={{ rates: fixture, isTestData: false }} />);
 
-    // S2 formunu doldur (Emeklilik, tavan üstü maaş)
+    // S2 formunu sihirbaz adımlarıyla doldur (Emeklilik, tavan üstü maaş)
     await user.selectOptions(
       screen.getByLabelText(/İşten Ayrılış \/ Fesih Nedeni/i),
       "retirement_military_marriage"
     );
     await user.type(screen.getByLabelText(/İşe Giriş Tarihi/i), "2024-10-01");
     await user.type(screen.getByLabelText(/İşten Çıkış Tarihi/i), "2026-09-30");
+    await user.click(screen.getByRole("button", { name: /İleri/i }));
+
+    // 2. Adım: Maaş
     await user.type(screen.getByLabelText(/Aylık Brüt Maaş/i), "90000");
+    await user.click(screen.getByRole("button", { name: /İleri/i }));
+
+    // 3. Adım: Yan Haklar ve Hesapla
     await user.type(screen.getByLabelText(/Düzenli Aylık Ek Ödemeler/i), "5000");
     await user.type(screen.getByLabelText(/Yıllık İkramiye \/ Prim Toplamı/i), "60000");
-
-    await user.click(screen.getByRole("button", { name: /Hesapla/i }));
+    await user.click(screen.getByRole("button", { name: /Hakkımı Hesapla/i }));
 
     // Tavan uyarısı görünmeli
     expect(
@@ -93,9 +103,12 @@ describe("Calculator — Blocked Durumu", () => {
     );
     await user.type(screen.getByLabelText(/İşe Giriş Tarihi/i), "2022-08-15");
     await user.type(screen.getByLabelText(/İşten Çıkış Tarihi/i), "2026-08-14");
-    await user.type(screen.getByLabelText(/Aylık Brüt Maaş/i), "50000");
+    await user.click(screen.getByRole("button", { name: /İleri/i }));
 
-    await user.click(screen.getByRole("button", { name: /Hesapla/i }));
+    await user.type(screen.getByLabelText(/Aylık Brüt Maaş/i), "50000");
+    await user.click(screen.getByRole("button", { name: /İleri/i }));
+
+    await user.click(screen.getByRole("button", { name: /Hakkımı Hesapla/i }));
 
     // Kilit hata mesajı görünmeli
     expect(
