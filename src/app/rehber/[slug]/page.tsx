@@ -7,7 +7,7 @@ import { getAllPosts, getPostBySlug } from "@/lib/mdx";
 import MdxComponents from "@/components/MdxComponents";
 import { siteConfig } from "@/config/site";
 import JsonLd from "@/components/JsonLd";
-import { buildBreadcrumbSchema, buildArticleSchema } from "@/lib/seo/jsonLd";
+import { buildBreadcrumbSchema } from "@/lib/seo/jsonLd";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -61,7 +61,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 /**
  * RehberPostPage — %100 Server Component MDX İçerik Sayfası
- * MDXRemote ve MdxComponents ile hibrit zengin rehber render eder.
+ * MDXRemote ve MdxComponents ile hibrit zengin rehber ve otomatik Article Schema render eder.
  */
 export default async function RehberPostPage({ params }: PageProps) {
   const resolvedParams = await params;
@@ -71,23 +71,34 @@ export default async function RehberPostPage({ params }: PageProps) {
     notFound();
   }
 
+  // Schema.org Article Zengin İçerik Verisi
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.frontmatter.title,
+    description: post.frontmatter.description,
+    datePublished: post.frontmatter.date,
+    author: {
+      "@type": "Person",
+      name: "Yasin Korkmaz",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "HakkımNedir",
+    },
+  };
+
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Ana Sayfa", url: "/" },
     { name: "Rehber", url: "/rehber" },
     { name: post.frontmatter.title, url: `/rehber/${post.slug}` },
   ]);
 
-  const articleSchema = buildArticleSchema({
-    headline: post.frontmatter.title,
-    description: post.frontmatter.description,
-    path: `/rehber/${post.slug}`,
-    datePublished: post.frontmatter.date,
-  });
-
   return (
     <article className="max-w-3xl mx-auto py-12 px-4 md:px-0 w-full">
-      <JsonLd data={breadcrumbSchema} />
+      {/* Schema.org Yapılandırılmış Verileri */}
       <JsonLd data={articleSchema} />
+      <JsonLd data={breadcrumbSchema} />
 
       {/* Geri Dönüş Linki */}
       <nav aria-label="Geri Dönüş" className="mb-6">

@@ -1,5 +1,5 @@
 /**
- * rehberMdx.test.tsx — MDX Dinamik Rehber ve Bileşen Haritası Testleri
+ * rehberMdx.test.tsx — MDX Dinamik Rehber, JSON-LD Schema ve MEVZUAT Testleri
  * Dayanak: 4857 sayılı İş Kanunu md. 24 & Next.js SSG Mimarisi
  */
 
@@ -9,6 +9,8 @@ import { render, screen } from "@testing-library/react";
 import RehberPage from "@/app/rehber/page";
 import RehberPostPage, { generateStaticParams, generateMetadata } from "@/app/rehber/[slug]/page";
 import MdxComponents from "@/components/MdxComponents";
+import MEVZUAT from "@/constants/mevzuat";
+import JsonLd from "@/components/JsonLd";
 
 vi.mock("next-mdx-remote/rsc", () => ({
   MDXRemote: ({ source, components }: { source: string; components?: Record<string, React.ComponentType> }) => (
@@ -19,7 +21,26 @@ vi.mock("next-mdx-remote/rsc", () => ({
   ),
 }));
 
-describe("MDX Blog Altyapısı Aşama 2 Testleri", () => {
+describe("MDX Blog Altyapısı Aşama 2 & 3 Testleri", () => {
+  it("MEVZUAT deposu beklenen güncel sabitleri içermeli", () => {
+    expect(MEVZUAT.KIDEM_TAVANI).toBeGreaterThan(50000);
+    expect(MEVZUAT.ASGARI_UCRET_BRUT).toBeGreaterThan(20000);
+    expect(MEVZUAT.ASGARI_UCRET_NET).toBeGreaterThan(15000);
+    expect(MEVZUAT.DAMGA_VERGISI_ORANI).toBe(0.00759);
+    expect(MEVZUAT.YIL).toBe(2026);
+  });
+
+  it("JsonLd bileşeni veriyi script etiketiyle güvenle basmalı", () => {
+    const { container: emptyContainer } = render(<JsonLd data={null} />);
+    expect(emptyContainer.querySelector("script")).toBeNull();
+
+    const sampleSchema = { "@context": "https://schema.org", "@type": "Thing", name: "Test" };
+    const { container } = render(<JsonLd data={sampleSchema} />);
+    const script = container.querySelector("script[type='application/ld+json']");
+    expect(script).not.toBeNull();
+    expect(script?.textContent).toContain('"@type":"Thing"');
+  });
+
   it("generateStaticParams en az 1 slug döndürmeli ve istifa slug'ını içermeli", () => {
     const params = generateStaticParams();
     expect(params.length).toBeGreaterThan(0);
@@ -50,9 +71,9 @@ describe("MDX Blog Altyapısı Aşama 2 Testleri", () => {
     expect(MdxComponents.a).toBeDefined();
   });
 
-  it("RehberPostPage geçerli slug için başlık ve içeriği render etmeli", async () => {
+  it("RehberPostPage geçerli slug için başlık, içerik ve Article JSON-LD render etmeli", async () => {
     const Component = await RehberPostPage({ params: Promise.resolve({ slug: "istifa-ettim-kidem-tazminati" }) });
-    render(Component);
+    const { container } = render(Component);
 
     expect(
       screen.getByRole("heading", { level: 1, name: "İstifa Ettim Kıdem Tazminatı Alabilir Miyim? (2026)" })
@@ -60,5 +81,16 @@ describe("MDX Blog Altyapısı Aşama 2 Testleri", () => {
     expect(screen.getByText("Kıdem Tazminatı")).toBeInTheDocument();
     expect(screen.getByText("2026-11-08")).toBeInTheDocument();
     expect(screen.getByTestId("mdx-remote-mock")).toBeInTheDocument();
+
+    const scripts = container.querySelectorAll("script[type='application/ld+json']");
+    expect(scripts.length).toBeGreaterThanOrEqual(1);
+
+    const articleJson = Array.from(scripts)
+      .map((s) => s.textContent || "")
+      .find((t) => t.includes('"@type":"Article"'));
+
+    expect(articleJson).toBeDefined();
+    expect(articleJson).toContain("Yasin Korkmaz");
+    expect(articleJson).toContain("HakkımNedir");
   });
 });
