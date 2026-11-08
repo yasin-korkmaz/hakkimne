@@ -31,22 +31,20 @@ export default function SonucPaylasim({ result }: SonucPaylasimProps) {
     }
   };
 
-  // WhatsApp paylaşım mesajı formatı
+  // WhatsApp paylaşım mesajı formatı (evrensel emojiler ve encodeURIComponent)
   const shareText = [
-    "📌 HakkımNedir? Tazminat Hesaplama Sonucum:",
-    "",
-    `💰 Tahmini Toplam Ele Geçecek Net: ${formatTRY(result.toplamNet)}`,
+    "⚖️ HakkımNedir? Tazminat Hesaplama Sonucum:",
+    `💰 Tahmini Net Ele Geçecek: ${formatTRY(result.toplamNet)}`,
     result.netKidem ? `🔹 Net Kıdem Tazminatı: ${formatTRY(result.netKidem)}` : null,
     result.netIhbar ? `🔹 Net İhbar Tazminatı: ${formatTRY(result.netIhbar)}` : null,
     result.serviceDuration ? `⏱️ Hizmet Süresi: ${result.serviceDuration}` : null,
     "",
-    "Sen de kıdem, ihbar ve diğer yasal haklarını kuruşu kuruşuna öğrenmek için hesapla:",
-    "👉 https://hakkimnedir.com.tr",
+    "🔗 Sen de yasal haklarını ücretsiz öğren: https://hakkimnedir.com.tr",
   ]
     .filter(Boolean)
     .join("\n");
 
-  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+  const whatsappUrl = "https://wa.me/?text=" + encodeURIComponent(shareText);
 
   return (
     <div className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 sm:p-5 flex flex-col gap-3">

@@ -44,18 +44,17 @@ export default function ResultScreen({
   const notices = buildNotices(result);
 
   const shareText = [
-    "📌 HakkımNedir? Kıdem ve İhbar Tazminatı Hesaplama Sonucum:",
-    `💰 Tahmini Toplam Net Ele Geçecek: ${formatTRY(totalNet ?? 0)}`,
-    result.severance.eligible ? `🔹 Net Kıdem: ${formatTRY(result.severance.netSeverance)}` : null,
-    result.notice.eligible ? `🔹 Net İhbar: ${formatTRY(result.notice.estimatedNetNotice)}` : null,
+    "⚖️ HakkımNedir? Tazminat Hesaplama Sonucum:",
+    `💰 Tahmini Net Ele Geçecek: ${formatTRY(totalNet ?? 0)}`,
+    result.severance.eligible ? `🔹 Net Kıdem Tazminatı: ${formatTRY(result.severance.netSeverance)}` : null,
+    result.notice.eligible ? `🔹 Net İhbar Tazminatı: ${formatTRY(result.notice.estimatedNetNotice)}` : null,
     "",
-    "Sen de yasal haklarını ücretsiz ve güvenle öğren:",
-    "👉 https://hakkimnedir.com.tr",
+    "🔗 Sen de yasal haklarını ücretsiz öğren: https://hakkimnedir.com.tr",
   ]
     .filter(Boolean)
     .join("\n");
 
-  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+  const whatsappUrl = "https://wa.me/?text=" + encodeURIComponent(shareText);
 
   return (
     <div className="w-full flex flex-col gap-6" id="result-screen-root">
