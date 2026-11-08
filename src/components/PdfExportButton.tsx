@@ -17,7 +17,7 @@ interface PdfExportButtonProps {
 }
 
 export default function PdfExportButton({
-  targetId = "result-screen-root",
+  targetId = "pdf-content",
   targetRef,
   fileName = "HakkimNedir_Tazminat_Raporu_2026.pdf",
 }: PdfExportButtonProps) {
@@ -35,7 +35,7 @@ export default function PdfExportButton({
       const element =
         targetRef?.current ||
         (targetId ? document.getElementById(targetId) : null) ||
-        document.getElementById("result-screen-root");
+        document.getElementById("pdf-content");
 
       if (!element) {
         console.warn("PDF dışa aktarımı için hedef element bulunamadı:", targetId);

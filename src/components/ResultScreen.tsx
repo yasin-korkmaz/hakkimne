@@ -58,15 +58,45 @@ export default function ResultScreen({
 
   return (
     <div className="w-full flex flex-col gap-6" id="result-screen-root">
-      {/* 1. Tazminat Tutarları (Özet Kartları) */}
-      <ResultSummary
-        rows={receiptRows}
-        severanceEligible={result.severance.eligible}
-        noticeEligible={result.notice.eligible}
-        totalNet={totalNet}
-      />
+      {/* 1. Tazminat Rakamları ve Detayları (Resmî PDF Kapsamı) */}
+      <div id="pdf-content" className="w-full flex flex-col gap-6 bg-white">
+        {/* Tazminat Tutarları (Özet Kartları) */}
+        <ResultSummary
+          rows={receiptRows}
+          severanceEligible={result.severance.eligible}
+          noticeEligible={result.notice.eligible}
+          totalNet={totalNet}
+        />
 
-      {/* 2. PDF İndir & Paylaşım Eylem Çubuğu */}
+        {/* Katman 2 Toggle Butonu ve Adım Adım Fiş */}
+        <div className="w-full flex flex-col items-center gap-4">
+          <button
+            type="button"
+            onClick={onToggleDetails}
+            aria-expanded={showDetails}
+            aria-controls="detailed-receipt"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-blue-200 bg-white hover:bg-blue-50 text-blue-700 font-semibold text-xs sm:text-sm transition-all shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 min-h-[44px]"
+            data-html2canvas-ignore="true"
+          >
+            <span>{showDetails ? "Ayrıntılı hesaplamayı gizle" : "Ayrıntılı hesaplamayı göster"}</span>
+            <ChevronDown
+              className={`w-4 h-4 transition-transform duration-200 ${showDetails ? "rotate-180" : ""}`}
+              aria-hidden="true"
+            />
+          </button>
+
+          {showDetails && (
+            <div id="detailed-receipt" className="w-full">
+              <ReceiptTable rows={receiptRows} />
+            </div>
+          )}
+        </div>
+
+        {/* Tavan & Mevzuat Bildirimleri */}
+        <NoticeList notices={notices} />
+      </div>
+
+      {/* 2. PDF İndir & Paylaşım Eylem Çubuğu (pdf-content dışında) */}
       <div className="w-full bg-slate-50 border border-slate-200/90 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-3.5 shadow-xs">
         <div className="flex flex-col gap-0.5 text-center sm:text-left">
           <span className="text-xs sm:text-sm font-bold text-slate-900">
@@ -78,7 +108,7 @@ export default function ResultScreen({
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-2.5 w-full sm:w-auto">
-          <PdfExportButton targetId="result-screen-root" />
+          <PdfExportButton targetId="pdf-content" />
           <a
             href={whatsappUrl}
             target="_blank"
@@ -92,36 +122,10 @@ export default function ResultScreen({
         </div>
       </div>
 
-      {/* Katman 2 Toggle Butonu ve Adım Adım Fiş */}
-      <div className="w-full flex flex-col items-center gap-4">
-        <button
-          type="button"
-          onClick={onToggleDetails}
-          aria-expanded={showDetails}
-          aria-controls="detailed-receipt"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-blue-200 bg-white hover:bg-blue-50 text-blue-700 font-semibold text-xs sm:text-sm transition-all shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 min-h-[44px]"
-        >
-          <span>{showDetails ? "Ayrıntılı hesaplamayı gizle" : "Ayrıntılı hesaplamayı göster"}</span>
-          <ChevronDown
-            className={`w-4 h-4 transition-transform duration-200 ${showDetails ? "rotate-180" : ""}`}
-            aria-hidden="true"
-          />
-        </button>
-
-        {showDetails && (
-          <div id="detailed-receipt" className="w-full">
-            <ReceiptTable rows={receiptRows} />
-          </div>
-        )}
-      </div>
-
-      {/* Tavan & Mevzuat Bildirimleri */}
-      <NoticeList notices={notices} />
-
-      {/* 3. Şimdi Ne Yapmalıyım? Eylem Kartı */}
+      {/* 3. Şimdi Ne Yapmalıyım? Eylem Kartı (pdf-content dışında) */}
       <NextStepsCard />
 
-      {/* 4. E-Posta / Lead Toplama Kartı */}
+      {/* 4. E-Posta / Lead Toplama Kartı (pdf-content dışında) */}
       <LeadCapture />
     </div>
   );
